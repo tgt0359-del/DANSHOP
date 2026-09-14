@@ -146,7 +146,7 @@ export function OrderReviewView() {
           {/* Left column: what's about to be ordered with — customer info and
               the chosen payment method, each with its own edit control. */}
           <div className="flex flex-col gap-6">
-            <section aria-labelledby="review-customer-heading" className="rounded-2xl border border-border bg-white p-6 sm:p-8">
+            <section aria-labelledby="review-customer-heading" className="rounded-2xl border border-border bg-surface-elevated p-6 sm:p-8">
               <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                 <h2 id="review-customer-heading" className="text-lg font-semibold text-foreground">
                   {t("checkout.customerInfo")}
@@ -154,7 +154,7 @@ export function OrderReviewView() {
                 <Link
                   href="/checkout"
                   prefetch={false}
-                  className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                  className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   {t("checkout.editCustomerInfo")}
                 </Link>
@@ -171,7 +171,7 @@ export function OrderReviewView() {
               </dl>
             </section>
 
-            <section aria-labelledby="review-payment-heading" className="rounded-2xl border border-border bg-white p-6 sm:p-8">
+            <section aria-labelledby="review-payment-heading" className="rounded-2xl border border-border bg-surface-elevated p-6 sm:p-8">
               <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                 <h2 id="review-payment-heading" className="text-lg font-semibold text-foreground">
                   {t("checkout.paymentMethod")}
@@ -179,7 +179,7 @@ export function OrderReviewView() {
                 <Link
                   href="/checkout/payment"
                   prefetch={false}
-                  className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                  className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   {t("checkout.changePaymentMethod")}
                 </Link>
@@ -207,7 +207,7 @@ export function OrderReviewView() {
             />
 
             {orderErrorKey && (
-              <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 sm:text-base">
+              <div role="alert" className="rounded-xl border border-red-200 bg-danger/10 px-4 py-3 text-sm text-danger sm:text-base">
                 {t(orderErrorKey)}
               </div>
             )}

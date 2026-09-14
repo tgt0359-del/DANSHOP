@@ -69,7 +69,7 @@ export function SearchSuggestions({
       id={id}
       role="listbox"
       aria-label={ariaLabel}
-      className="absolute inset-x-0 top-full z-30 mt-2 max-h-80 overflow-y-auto rounded-2xl border border-border bg-white p-2 shadow-lg"
+      className="absolute inset-x-0 top-full z-30 mt-2 max-h-80 overflow-y-auto rounded-2xl border border-border bg-surface-elevated p-2 shadow-lg"
     >
       {suggestions.map((item, index) => (
         <li key={item.key} id={`${id}-option-${index}`} role="option" aria-selected={index === activeIndex}>
@@ -78,8 +78,8 @@ export function SearchSuggestions({
             prefetch={false}
             onClick={onSelect}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
-              index === activeIndex ? "bg-surface" : "hover:bg-surface"
+              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+              index === activeIndex ? "bg-surface" : "hover:bg-surface-hover"
             )}
           >
             <div className="min-w-0 flex-1">

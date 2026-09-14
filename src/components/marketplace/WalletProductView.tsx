@@ -143,7 +143,7 @@ export function WalletProductView({
           <Link
             href={category?.route ?? "/"}
             prefetch={false}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             {category ? t(category.nameKey) : t("marketplace.backToHome")}
@@ -242,7 +242,7 @@ export function WalletProductView({
 
             {/* Right column — purchase summary panel */}
             <div className="lg:sticky lg:top-24 lg:self-start">
-              <div className="flex flex-col gap-4 rounded-2xl border border-border bg-white p-5 sm:p-6">
+              <div className="flex flex-col gap-4 rounded-2xl border border-border bg-surface-elevated p-5 sm:p-6">
                 <Badge variant="subtle" className="w-fit !font-medium">
                   {t("games.filters.inStock")}
                 </Badge>
@@ -272,7 +272,7 @@ export function WalletProductView({
                       onClick={decreaseQuantity}
                       disabled={!canPurchase || quantity <= 1}
                       aria-label={t("cart.decreaseQuantity")}
-                      className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
+                      className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
                     >
                       <Minus className="h-4 w-4" aria-hidden="true" />
                     </button>
@@ -288,7 +288,7 @@ export function WalletProductView({
                       onClick={increaseQuantity}
                       disabled={!canPurchase}
                       aria-label={t("cart.increaseQuantity")}
-                      className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
+                      className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
                     >
                       <Plus className="h-4 w-4" aria-hidden="true" />
                     </button>

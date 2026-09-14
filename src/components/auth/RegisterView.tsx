@@ -138,17 +138,17 @@ export function RegisterView() {
                 aria-invalid={Boolean(emailError || emailMissing)}
                 aria-describedby={emailError ? "register-email-error" : emailMissing ? "register-email-required" : undefined}
                 className={cn(
-                  "h-11 w-full rounded-full border bg-white px-4 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+                  "h-11 w-full rounded-full border bg-surface-elevated px-4 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                   emailError || emailMissing ? "border-red-500" : "border-border"
                 )}
               />
               {emailMissing && (
-                <p id="register-email-required" role="alert" className="text-xs text-red-600">
+                <p id="register-email-required" role="alert" className="text-xs text-danger">
                   {emailMissing}
                 </p>
               )}
               {!emailMissing && emailError && (
-                <p id="register-email-error" role="alert" className="text-xs text-red-600">
+                <p id="register-email-error" role="alert" className="text-xs text-danger">
                   {emailError}
                 </p>
               )}
@@ -175,7 +175,7 @@ export function RegisterView() {
             />
 
             {errorKey && (
-              <p role="alert" className="text-sm text-red-600">
+              <p role="alert" className="text-sm text-danger">
                 {t(errorKey)}
               </p>
             )}
@@ -189,7 +189,7 @@ export function RegisterView() {
             <Link
               href="/login"
               prefetch={false}
-              className="font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+              className="font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               {t("auth.switchToSignIn")}
             </Link>

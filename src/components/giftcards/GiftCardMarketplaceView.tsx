@@ -150,7 +150,7 @@ export function GiftCardMarketplaceView({ products }: { products: Product[] }) {
         <Link
           href="/"
           prefetch={false}
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           {t("marketplace.backToHome")}
@@ -182,7 +182,7 @@ export function GiftCardMarketplaceView({ products }: { products: Product[] }) {
             onChange={(event) => setQuery(event.target.value)}
             placeholder={t("giftCards.searchPlaceholder")}
             aria-label={t("giftCards.searchPlaceholder")}
-            className="h-11 w-full rounded-full border border-border bg-white pl-10 pr-4 text-sm text-foreground shadow-sm placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+            className="h-11 w-full rounded-full border border-border bg-surface-elevated pl-10 pr-4 text-sm text-foreground shadow-sm placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           />
         </div>
 
@@ -230,10 +230,10 @@ export function GiftCardMarketplaceView({ products }: { products: Product[] }) {
               onClick={() => setCategory(null)}
               aria-pressed={category === null}
               className={cn(
-                "rounded-full border px-4.5 py-2.5 text-sm font-medium shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+                "rounded-full border px-4.5 py-2.5 text-sm font-medium shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                 category === null
-                  ? "border-black bg-black text-white"
-                  : "border-border bg-white text-foreground hover:border-foreground/40"
+                  ? "border-primary bg-primary text-white"
+                  : "border-border bg-surface-elevated text-foreground hover:border-border-strong"
               )}
             >
               {t("giftCards.categoryAll")}
@@ -257,10 +257,10 @@ export function GiftCardMarketplaceView({ products }: { products: Product[] }) {
                   onClick={() => setCategory(entry.value)}
                   aria-pressed={selected}
                   className={cn(
-                    "rounded-full border px-4.5 py-2.5 text-sm font-medium shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+                    "rounded-full border px-4.5 py-2.5 text-sm font-medium shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                     selected
-                      ? "border-black bg-black text-white"
-                      : "border-border bg-white text-foreground hover:border-foreground/40"
+                      ? "border-primary bg-primary text-white"
+                      : "border-border bg-surface-elevated text-foreground hover:border-border-strong"
                   )}
                 >
                   {t(entry.labelKey)}
@@ -283,7 +283,7 @@ export function GiftCardMarketplaceView({ products }: { products: Product[] }) {
               width/columns/breakpoint unchanged, so the lg-and-up layout
               doesn't shift. */}
           <aside className="hidden shrink-0 lg:block lg:w-64 xl:w-72">
-            <div className="flex flex-col gap-6 rounded-2xl border border-border bg-white p-6 shadow-sm">
+            <div className="flex flex-col gap-6 rounded-2xl border border-border bg-surface-elevated p-6 shadow-sm">
               {renderFilterFields("giftcard-filter")}
               <Button type="button" variant="secondary" onClick={clearFilters} disabled={!hasActiveFilters} className="w-full">
                 {t("games.clearFilters")}
@@ -296,12 +296,12 @@ export function GiftCardMarketplaceView({ products }: { products: Product[] }) {
               <button
                 type="button"
                 onClick={() => setDrawerOpen(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 lg:hidden"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-elevated px-4 py-2.5 text-sm font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 lg:hidden"
               >
                 <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
                 {t("games.filters.filtersButton")}
                 {activeFilterCount > 0 && (
-                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1.5 text-xs font-semibold text-white">
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs font-semibold text-white">
                     {activeFilterCount}
                   </span>
                 )}
@@ -352,7 +352,7 @@ export function GiftCardMarketplaceView({ products }: { products: Product[] }) {
                 <button
                   type="button"
                   onClick={clearFilters}
-                  className="shrink-0 whitespace-nowrap px-1 text-xs font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                  className="shrink-0 whitespace-nowrap px-1 text-xs font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   {t("games.clearFilters")}
                 </button>
@@ -388,7 +388,7 @@ export function GiftCardMarketplaceView({ products }: { products: Product[] }) {
                 ))}
               </div>
             ) : (
-              <div className="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-border bg-white px-6 py-16 text-center">
+              <div className="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-border bg-surface-elevated px-6 py-16 text-center">
                 <p className="text-base font-semibold text-foreground">{t("marketplace.noResultsTitle")}</p>
                 <Button type="button" variant="secondary" onClick={clearFilters}>
                   {t("games.clearFilters")}

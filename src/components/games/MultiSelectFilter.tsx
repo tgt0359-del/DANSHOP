@@ -133,7 +133,7 @@ export function MultiSelectFilter<T extends string>({
             onChange={(event) => setSearchQuery(event.target.value)}
             placeholder={searchPlaceholder}
             aria-label={searchPlaceholder}
-            className="h-11 w-full rounded-xl border border-border bg-white pl-9 pr-4 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+            className="h-11 w-full rounded-xl border border-border bg-surface-elevated pl-9 pr-4 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           />
         </div>
       )}
@@ -149,7 +149,7 @@ export function MultiSelectFilter<T extends string>({
                 key={option.value}
                 htmlFor={id}
                 className={cn(
-                  "flex cursor-pointer items-center rounded-lg text-foreground transition-colors hover:bg-surface",
+                  "flex cursor-pointer items-center rounded-lg text-foreground transition-colors hover:bg-surface-hover",
                   lg ? "gap-2.5 px-2.5 py-2.5 text-[15px] leading-normal" : "gap-2 px-2 py-1.5 text-sm",
                   // UI-03.3 §8: "selected state clearly visible" — a subtle,
                   // persistent tint (same neutral `bg-surface` hover
@@ -164,7 +164,7 @@ export function MultiSelectFilter<T extends string>({
                   checked={checked}
                   onChange={() => onToggle(option.value)}
                   className={cn(
-                    "shrink-0 rounded border-border accent-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+                    "shrink-0 rounded border-border accent-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                     lg ? "h-5 w-5" : "h-4 w-4"
                   )}
                 />
@@ -197,7 +197,7 @@ export function MultiSelectFilter<T extends string>({
           onClick={() => setExpanded((current) => !current)}
           aria-expanded={effectivelyExpanded}
           className={cn(
-            "self-start font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+            "self-start font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
             lg ? "px-1 text-sm" : "px-1 text-xs"
           )}
         >

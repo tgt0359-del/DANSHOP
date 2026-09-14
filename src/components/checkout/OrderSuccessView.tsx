@@ -175,7 +175,7 @@ export function OrderSuccessView() {
             <div className="flex flex-col gap-6">
               <section
                 aria-label={t("checkout.orderDetails")}
-                className="rounded-2xl border border-border bg-white p-6 sm:p-8"
+                className="rounded-2xl border border-border bg-surface-elevated p-6 sm:p-8"
               >
                 <dl className="flex flex-col gap-4 text-sm sm:text-base">
                   <div className="flex items-center justify-between gap-3">
@@ -188,7 +188,7 @@ export function OrderSuccessView() {
                       <Link
                         href={`/orders/${order.orderReference}`}
                         prefetch={false}
-                        className="underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                        className="underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                       >
                         {order.orderReference}
                       </Link>
@@ -233,7 +233,7 @@ export function OrderSuccessView() {
 
               <section
                 aria-labelledby="order-success-customer-heading"
-                className="rounded-2xl border border-border bg-white p-6 sm:p-8"
+                className="rounded-2xl border border-border bg-surface-elevated p-6 sm:p-8"
               >
                 <h2 id="order-success-customer-heading" className="text-base font-semibold text-foreground sm:text-lg">
                   {t("checkout.customerInfo")}

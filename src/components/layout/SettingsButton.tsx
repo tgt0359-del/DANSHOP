@@ -33,8 +33,8 @@ export function SettingsButton({ className }: { className?: string }) {
       aria-haspopup="dialog"
       aria-label={t("settings.openLabel")}
       className={cn(
-        "flex h-10 items-center gap-1.5 rounded-full border border-border bg-white px-3 text-sm font-medium text-foreground transition-colors",
-        "hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+        "flex h-10 items-center gap-1.5 rounded-full border border-border bg-surface-elevated px-3 text-sm font-medium text-foreground transition-colors",
+        "hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
         className
       )}
     >

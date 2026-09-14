@@ -150,7 +150,7 @@ export function OtpInput({
           aria-describedby={describedById}
           aria-invalid={invalid}
           className={cn(
-            "h-12 w-10 rounded-xl border bg-white text-center text-xl font-semibold text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:h-14 sm:w-12",
+            "h-12 w-10 rounded-xl border bg-surface-elevated text-center text-xl font-semibold text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:h-14 sm:w-12",
             invalid ? "border-red-500" : "border-border",
             disabled && "opacity-60"
           )}

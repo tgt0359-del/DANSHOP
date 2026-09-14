@@ -59,7 +59,7 @@ export function CheckoutView() {
               summary and CTA in the right column — matching the requested
               stacking order without any extra reordering rules. */}
           <div className="flex flex-col gap-6">
-            <section aria-labelledby="checkout-customer-heading" className="rounded-2xl border border-border bg-white p-6 sm:p-8">
+            <section aria-labelledby="checkout-customer-heading" className="rounded-2xl border border-border bg-surface-elevated p-6 sm:p-8">
               <h2 id="checkout-customer-heading" className="text-lg font-semibold text-foreground">
                 {t("checkout.customerInfo")}
               </h2>
@@ -75,7 +75,7 @@ export function CheckoutView() {
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     placeholder="you@example.com"
-                    className="h-12 w-full rounded-full border border-border bg-white px-5 text-base text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                    className="h-12 w-full rounded-full border border-border bg-surface-elevated px-5 text-base text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -88,13 +88,13 @@ export function CheckoutView() {
                     autoComplete="name"
                     value={fullName}
                     onChange={(event) => setFullName(event.target.value)}
-                    className="h-12 w-full rounded-full border border-border bg-white px-5 text-base text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                    className="h-12 w-full rounded-full border border-border bg-surface-elevated px-5 text-base text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   />
                 </div>
               </div>
             </section>
 
-            <section aria-labelledby="checkout-payment-heading" className="rounded-2xl border border-border bg-white p-6 sm:p-8">
+            <section aria-labelledby="checkout-payment-heading" className="rounded-2xl border border-border bg-surface-elevated p-6 sm:p-8">
               <h2 id="checkout-payment-heading" className="text-lg font-semibold text-foreground">
                 {t("checkout.paymentMethod")}
               </h2>

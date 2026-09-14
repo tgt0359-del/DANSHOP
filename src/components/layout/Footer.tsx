@@ -93,7 +93,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-white">
+    <footer className="border-t border-border bg-surface-elevated">
       <Container className="py-16 sm:py-20 lg:py-24">
         <Reveal>
           {/* About | Purchase | Help | Business | Follow Us */}
@@ -129,7 +129,7 @@ export function Footer() {
                         rel="noopener noreferrer"
                         title={accessibleName}
                         aria-label={accessibleName}
-                        className="inline-flex h-12 w-12 items-center justify-center rounded-full text-secondary transition-colors duration-200 hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                        className="inline-flex h-12 w-12 items-center justify-center rounded-full text-secondary transition-colors duration-200 hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                       >
                         <Icon className="h-5 w-5 sm:h-[22px] sm:w-[22px]" />
                       </a>
@@ -164,7 +164,7 @@ export function Footer() {
               {paymentMethods.map(({ name, icon: Icon }) => (
                 <div
                   key={name}
-                  className="flex h-12 items-center gap-2 rounded-xl border border-border bg-white px-3.5 text-secondary transition-colors duration-200 hover:border-foreground/20"
+                  className="flex h-12 items-center gap-2 rounded-xl border border-border bg-surface-elevated px-3.5 text-secondary transition-colors duration-200 hover:border-border-strong"
                 >
                   <Icon className="h-4 w-4 shrink-0 sm:h-[18px] sm:w-[18px]" aria-hidden="true" />
                   <span className="text-xs font-semibold text-foreground sm:text-sm">{name}</span>
@@ -187,7 +187,7 @@ export function Footer() {
 
             <div>
               <h3 className={sectionHeadingClass}>{t("footer.reviewsHeading")}</h3>
-              <div className="mt-5 inline-flex items-center gap-3 rounded-2xl border border-border bg-white px-5 py-3.5">
+              <div className="mt-5 inline-flex items-center gap-3 rounded-2xl border border-border bg-surface-elevated px-5 py-3.5">
                 <div className="flex items-center gap-0.5 text-secondary" aria-hidden="true">
                   {Array.from({ length: 5 }, (_, index) => (
                     <Star key={index} className="h-4 w-4" strokeWidth={1.5} />
@@ -267,7 +267,7 @@ function AppBadge({ icon: Icon, label }: { icon: typeof Apple; label: string }) 
   const { t } = useLanguage();
 
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3 text-secondary transition-colors duration-200 hover:border-foreground/20">
+    <div className="flex items-center gap-3 rounded-xl border border-border bg-surface-elevated px-4 py-3 text-secondary transition-colors duration-200 hover:border-border-strong">
       <Icon className="h-6 w-6 shrink-0 sm:h-7 sm:w-7" aria-hidden="true" />
       <div className="flex flex-col leading-tight">
         <span className="text-[11px] uppercase tracking-wide text-secondary">{t("footer.downloadAppComingSoon")}</span>

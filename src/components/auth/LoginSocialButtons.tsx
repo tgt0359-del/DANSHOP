@@ -82,7 +82,7 @@ export function LoginSocialButtons() {
           type="button"
           disabled={provider.id === "google" && googlePending}
           onClick={provider.id === "google" ? handleGoogleClick : handlePlaceholderClick}
-          className="inline-flex h-11 w-full items-center gap-3 rounded-full border border-border bg-white px-4 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex h-11 w-full items-center gap-3 rounded-full border border-border bg-surface-elevated px-4 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
         >
           <span
             aria-hidden="true"
@@ -95,7 +95,7 @@ export function LoginSocialButtons() {
         </button>
       ))}
       {googleErrorKey && (
-        <p role="alert" className="text-center text-xs text-red-600">
+        <p role="alert" className="text-center text-xs text-danger">
           {t(googleErrorKey)}
         </p>
       )}

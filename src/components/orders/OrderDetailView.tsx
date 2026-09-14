@@ -36,7 +36,7 @@ export function OrderDetailView({ reference }: { reference: string }) {
     <Link
       href="/orders"
       prefetch={false}
-      className="inline-flex items-center gap-1.5 rounded text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 print:hidden"
+      className="inline-flex items-center gap-1.5 rounded text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 print:hidden"
     >
       <ArrowLeft className="h-4 w-4" aria-hidden="true" />
       {t("orders.backToOrders")}
@@ -64,7 +64,7 @@ export function OrderDetailView({ reference }: { reference: string }) {
         <Container>
           <div className="mx-auto max-w-lg">
             {backLink}
-            <div role="alert" className="mt-6 flex flex-col items-center gap-2 rounded-2xl border border-border bg-white py-16 text-center">
+            <div role="alert" className="mt-6 flex flex-col items-center gap-2 rounded-2xl border border-border bg-surface-elevated py-16 text-center">
               <p className="text-base font-semibold text-foreground">{t("orders.errorTitle")}</p>
               <p className="max-w-sm text-sm text-secondary">{t("orders.errorDescription")}</p>
             </div>
@@ -80,7 +80,7 @@ export function OrderDetailView({ reference }: { reference: string }) {
         <Container>
           <div className="mx-auto max-w-lg">
             {backLink}
-            <div className="mt-6 flex flex-col items-center gap-3 rounded-2xl border border-border bg-white py-16 text-center">
+            <div className="mt-6 flex flex-col items-center gap-3 rounded-2xl border border-border bg-surface-elevated py-16 text-center">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-foreground">
                 <PackageX className="h-6 w-6" aria-hidden="true" />
               </span>

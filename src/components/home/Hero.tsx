@@ -55,9 +55,9 @@ const HERO_ARTWORK_HEIGHT = 941;
  * blur, and a restrained "get slightly brighter" hover — no heavy shadow,
  * no scale/bounce animation. */
 const glassPrimaryClass =
-  "inline-flex h-11 items-center justify-center rounded-full border border-white/65 bg-white/10 px-6 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-200 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 sm:h-12 sm:px-7 sm:text-base";
+  "inline-flex h-11 items-center justify-center rounded-xl bg-primary px-6 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-colors duration-200 hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 sm:h-12 sm:px-7 sm:text-base";
 const glassSecondaryClass =
-  "inline-flex h-11 items-center justify-center rounded-full border border-white/35 bg-white/5 px-6 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-200 hover:border-white/55 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 sm:h-12 sm:px-7 sm:text-base";
+  "inline-flex h-11 items-center justify-center rounded-xl border border-white/25 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur-md transition-colors duration-200 hover:border-white/40 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 sm:h-12 sm:px-7 sm:text-base";
 
 /**
  * The real heading/tagline/CTA content — written once, rendered twice (the
@@ -93,7 +93,7 @@ function HeroContent({ tone }: { tone: "overlay" | "stacked" }) {
       <p
         className={cn(
           "mt-2 max-w-md text-sm sm:text-base",
-          isOverlay ? "text-white/85" : "mt-3 text-secondary"
+          isOverlay ? "text-white/80" : "mt-3 text-secondary"
         )}
       >
         {t("brand.tagline")}
@@ -124,13 +124,13 @@ export function Hero() {
   const artworkAlt = t("home.hero.subheading");
 
   return (
-    <section aria-label={artworkAlt} className="bg-white">
+    <section aria-label={artworkAlt} className="bg-background">
       <Container className="py-6 sm:py-8 lg:py-10">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative aspect-video w-full overflow-hidden rounded-2xl"
+          className="relative aspect-video w-full overflow-hidden rounded-2xl border border-border shadow-2xl shadow-black/40 ring-1 ring-white/5"
         >
           {/* Full-width real campaign artwork (§1) — same file, untouched;
               `object-cover` fills the fixed 16:9 box without stretching or
@@ -160,7 +160,7 @@ export function Hero() {
               purpose. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-black/75 via-black/15 to-transparent sm:block"
+            className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-[#0b0d10]/90 via-[#0b0d10]/25 to-transparent sm:block"
           />
 
           {/* `sm:`+ overlay content — bottom-anchored, left-aligned (the

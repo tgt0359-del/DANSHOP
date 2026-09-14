@@ -33,7 +33,7 @@ export function TrustSection() {
             {benefits.map(({ key, icon: Icon }) => (
               <div
                 key={key}
-                className="flex flex-col gap-3 rounded-2xl border border-border bg-white p-6 transition-shadow duration-200 hover:shadow-sm"
+                className="flex flex-col gap-3 rounded-2xl border border-border bg-surface-elevated p-6 transition-shadow duration-200 hover:shadow-sm"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-surface text-foreground">
                   <Icon className="h-5 w-5" aria-hidden="true" />

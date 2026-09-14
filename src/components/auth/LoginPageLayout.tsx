@@ -41,21 +41,21 @@ export function LoginPageLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-1 flex-col lg:grid lg:grid-cols-2 lg:min-h-[640px]">
       <div
-        className="relative hidden overflow-hidden bg-gradient-to-br from-white to-[var(--surface)] lg:flex lg:flex-col lg:justify-center lg:px-12 xl:px-16"
+        className="relative hidden overflow-hidden border-r border-border bg-gradient-to-br from-surface-elevated via-background to-background lg:flex lg:flex-col lg:justify-center lg:px-12 xl:px-16"
         aria-hidden="true"
       >
-        <div className="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-blue-500/5 blur-3xl" />
+        <div className="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
         <div className="relative max-w-sm">
           <Logo />
-          <div className="mt-6 h-1 w-10 rounded-full bg-blue-600" />
+          <div className="mt-6 h-1 w-10 rounded-full bg-primary" />
           <p className="mt-6 text-2xl font-semibold leading-snug text-foreground">{t("brand.tagline")}</p>
           <p className="mt-3 text-sm text-secondary">{t("auth.signInIntro")}</p>
         </div>
       </div>
 
       <div className="flex flex-1 items-center justify-center px-4 py-10 sm:px-6 sm:py-14 lg:py-10">
-        <div className="w-full max-w-sm rounded-2xl border border-border bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)] sm:p-8">
+        <div className="w-full max-w-sm rounded-2xl border border-border bg-surface-elevated p-6 shadow-2xl shadow-black/40 sm:p-8">
           {children}
         </div>
       </div>

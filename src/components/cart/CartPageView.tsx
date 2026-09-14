@@ -107,7 +107,7 @@ export function CartPageView() {
             </div>
 
             {lines.map(({ game, quantity, href, slug, variantId, topUpInfo, platform }) => (
-              <div key={game.id} className="flex gap-4 rounded-2xl border border-border bg-white p-5 sm:gap-6 sm:p-7">
+              <div key={game.id} className="flex gap-4 rounded-2xl border border-border bg-surface-elevated p-5 sm:gap-6 sm:p-7">
                 <Link
                   href={href}
                   prefetch={false}
@@ -122,7 +122,7 @@ export function CartPageView() {
                     <Link
                       href={href}
                       prefetch={false}
-                      className="line-clamp-1 text-base font-medium text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:text-lg lg:text-xl"
+                      className="line-clamp-1 text-base font-medium text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:text-lg lg:text-xl"
                     >
                       {game.title}
                     </Link>
@@ -164,7 +164,7 @@ export function CartPageView() {
                           onClick={() => updateQuantity(slug, quantity - 1, variantId)}
                           disabled={quantity <= 1}
                           aria-label={`${t("cart.decreaseQuantity")} — ${game.title}`}
-                          className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40 sm:h-11 sm:w-11"
+                          className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40 sm:h-11 sm:w-11"
                         >
                           <Minus className="h-4 w-4" aria-hidden="true" />
                         </button>
@@ -179,7 +179,7 @@ export function CartPageView() {
                           type="button"
                           onClick={() => updateQuantity(slug, quantity + 1, variantId)}
                           aria-label={`${t("cart.increaseQuantity")} — ${game.title}`}
-                          className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:h-11 sm:w-11"
+                          className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:h-11 sm:w-11"
                         >
                           <Plus className="h-4 w-4" aria-hidden="true" />
                         </button>
@@ -189,7 +189,7 @@ export function CartPageView() {
                         type="button"
                         onClick={() => removeFromCart(slug, variantId)}
                         aria-label={`${t("cart.removeItem")} — ${game.title}`}
-                        className="flex h-9 w-9 items-center justify-center rounded-full text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:h-11 sm:w-11"
+                        className="flex h-9 w-9 items-center justify-center rounded-full text-secondary transition-colors hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:h-11 sm:w-11"
                       >
                         <Trash2 className="h-[18px] w-[18px]" aria-hidden="true" />
                       </button>
@@ -202,7 +202,7 @@ export function CartPageView() {
             <Link
               href="/games"
               prefetch={false}
-              className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+              className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               {t("cart.continueShopping")}
             </Link>

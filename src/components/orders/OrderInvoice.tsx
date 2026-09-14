@@ -75,7 +75,7 @@ export function OrderInvoice({ order }: { order: Order }) {
   return (
     <section
       aria-labelledby="order-invoice-heading"
-      className="rounded-2xl border border-border bg-white p-6 sm:p-8 print:rounded-none print:border-none print:p-0"
+      className="rounded-2xl border border-border bg-surface-elevated p-6 sm:p-8 print:rounded-none print:border-none print:p-0"
     >
       {/* Letterhead — DANSHOP branding on one side, invoice identity on the other. */}
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-6">
@@ -199,7 +199,7 @@ export function OrderInvoice({ order }: { order: Order }) {
         <button
           type="button"
           onClick={() => window.print()}
-          className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-white px-5 text-sm font-medium text-foreground transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-surface-elevated px-5 text-sm font-medium text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <Printer className="h-4 w-4" aria-hidden="true" />
           {t("orders.printInvoice")}

@@ -59,7 +59,7 @@ export function AccountMenu({ open, onClose, id }: { open: boolean; onClose: () 
   return (
     <div
       id={id}
-      className="absolute right-0 top-full z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-border bg-white shadow-xl"
+      className="absolute right-0 top-full z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-border bg-surface-elevated shadow-xl"
     >
       <p className="truncate border-b border-border px-4 py-3 text-xs font-semibold uppercase tracking-wider text-secondary">
         {user ? user.email : t("account.menuHeading")}
@@ -76,7 +76,7 @@ export function AccountMenu({ open, onClose, id }: { open: boolean; onClose: () 
               onClick={onClose}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-secondary transition-colors",
-                "hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                "hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               )}
             >
               <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -91,7 +91,7 @@ export function AccountMenu({ open, onClose, id }: { open: boolean; onClose: () 
           <button
             type="button"
             onClick={handleLogout}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-black px-3 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-3 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <LogOut className="h-4 w-4" aria-hidden="true" />
             <span>{t("actions.logout")}</span>
@@ -103,7 +103,7 @@ export function AccountMenu({ open, onClose, id }: { open: boolean; onClose: () 
               onClose();
               openAuthModal("signIn");
             }}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-black px-3 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-3 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <LogIn className="h-4 w-4" aria-hidden="true" />
             <span>{t("actions.signIn")}</span>

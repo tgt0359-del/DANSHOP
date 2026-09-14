@@ -44,10 +44,10 @@ function SidebarNavLink({ link, active, onClose }: { link: SidebarLink; active: 
       prefetch={false}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex items-center gap-3 rounded-lg border-l-2 px-3 py-2.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+        "flex items-center gap-3 rounded-lg border-l-2 px-3 py-2.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
         active
-          ? "border-foreground bg-surface font-semibold text-foreground"
-          : "border-transparent font-medium text-secondary hover:bg-surface hover:text-foreground"
+          ? "border-primary bg-surface font-semibold text-foreground"
+          : "border-transparent font-medium text-secondary hover:bg-surface-hover hover:text-foreground"
       )}
     >
       <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
@@ -127,7 +127,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/40"
+            className="fixed inset-0 z-50 bg-black/60"
             onClick={onClose}
             aria-hidden="true"
           />
@@ -140,7 +140,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed inset-y-0 left-0 z-50 flex w-64 max-w-[85vw] flex-col overflow-y-auto bg-white shadow-xl"
+            className="fixed inset-y-0 left-0 z-50 flex w-64 max-w-[85vw] flex-col overflow-y-auto bg-surface-elevated shadow-xl"
           >
             <div className="flex h-16 shrink-0 items-center justify-between border-b border-border px-4">
               <Logo onClick={onClose} />
@@ -184,14 +184,14 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
                   neither has a real backing page or shared state today. */}
               <button
                 type="button"
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-secondary transition-colors hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <Heart className="h-5 w-5 shrink-0" aria-hidden="true" />
                 <span>{t("actions.wishlist")}</span>
               </button>
               <button
                 type="button"
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-secondary transition-colors hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <ShoppingCart className="h-5 w-5 shrink-0" aria-hidden="true" />
                 <span>{t("actions.cart")}</span>

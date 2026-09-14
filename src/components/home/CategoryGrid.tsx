@@ -51,9 +51,9 @@ export function CategoryGrid() {
                 key={key}
                 href={href}
                 prefetch={false}
-                className="group flex h-full flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-white p-6 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                className="group flex h-full flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-surface-elevated p-6 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-foreground transition-colors duration-200 group-hover:bg-black group-hover:text-white">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-foreground transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <span className="text-sm font-medium leading-snug text-foreground">

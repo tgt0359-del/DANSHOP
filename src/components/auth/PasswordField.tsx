@@ -57,7 +57,7 @@ export function PasswordField({
           aria-invalid={Boolean(requiredError || error)}
           aria-describedby={describedBy}
           className={cn(
-            "h-11 w-full rounded-full border bg-white pl-4 pr-11 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+            "h-11 w-full rounded-full border bg-surface-elevated pl-4 pr-11 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
             requiredError || error ? "border-red-500" : "border-border"
           )}
         />
@@ -66,18 +66,18 @@ export function PasswordField({
           onClick={() => setVisible((prev) => !prev)}
           aria-label={visible ? t("auth.hidePassword") : t("auth.showPassword")}
           aria-pressed={visible}
-          className="absolute right-1.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="absolute right-1.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-secondary transition-colors hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {visible ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
         </button>
       </div>
       {requiredError && (
-        <p id={`${id}-required`} role="alert" className="text-xs text-red-600">
+        <p id={`${id}-required`} role="alert" className="text-xs text-danger">
           {requiredError}
         </p>
       )}
       {!requiredError && error && (
-        <p id={`${id}-error`} role="alert" className="text-xs text-red-600">
+        <p id={`${id}-error`} role="alert" className="text-xs text-danger">
           {error}
         </p>
       )}

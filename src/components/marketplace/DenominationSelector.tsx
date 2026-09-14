@@ -61,10 +61,10 @@ export function DenominationSelector({
             <label
               key={variant.id}
               className={cn(
-                "flex cursor-pointer flex-col items-center gap-1 rounded-xl border px-3 py-3 text-center transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-black has-[:focus-visible]:ring-offset-2",
+                "flex cursor-pointer flex-col items-center gap-1 rounded-xl border px-3 py-3 text-center transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary has-[:focus-visible]:ring-offset-2",
                 checked
-                  ? "border-black bg-black text-white"
-                  : "border-border bg-white text-foreground hover:border-foreground/40",
+                  ? "border-primary bg-primary text-white"
+                  : "border-border bg-surface-elevated text-foreground hover:border-border-strong",
                 !variant.available && "cursor-not-allowed opacity-50"
               )}
             >

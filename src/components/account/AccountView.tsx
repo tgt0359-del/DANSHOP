@@ -70,7 +70,7 @@ function AccountSection({
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className="scroll-mt-24 rounded-2xl border border-border bg-white p-5 sm:p-6"
+      className="scroll-mt-24 rounded-2xl border border-border bg-surface-elevated p-5 sm:p-6"
     >
       <h2
         id={`${id}-heading`}
@@ -248,9 +248,9 @@ export function AccountView() {
                   href={`#${item.id}`}
                   aria-current={isActive ? "location" : undefined}
                   className={cn(
-                    "-mb-px border-b-2 py-2.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+                    "-mb-px border-b-2 py-2.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                     isActive
-                      ? "border-foreground font-semibold text-foreground"
+                      ? "border-primary font-semibold text-foreground"
                       : "border-transparent font-medium text-secondary hover:text-foreground"
                   )}
                 >
@@ -274,7 +274,7 @@ export function AccountView() {
             <section
               id="overview"
               aria-labelledby="overview-heading"
-              className="scroll-mt-24 rounded-2xl border border-border bg-white p-5 sm:p-6"
+              className="scroll-mt-24 rounded-2xl border border-border bg-surface-elevated p-5 sm:p-6"
             >
               {authStatus === "authenticated" && user ? (
                 <>
@@ -385,7 +385,7 @@ export function AccountView() {
                   <Link
                     href="/games"
                     prefetch={false}
-                    className="mt-3 inline-block text-sm font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                    className="mt-3 inline-block text-sm font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     {t("cart.continueShopping")}
                   </Link>

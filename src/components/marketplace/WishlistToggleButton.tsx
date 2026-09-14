@@ -38,8 +38,8 @@ export function WishlistToggleButton({
       aria-label={t("actions.wishlist")}
       aria-pressed={wishlisted}
       className={cn(
-        "flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
-        wishlisted ? "border-black bg-black text-white" : "border-border bg-white text-foreground hover:bg-surface",
+        "flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+        wishlisted ? "border-primary bg-primary text-white" : "border-border bg-surface-elevated text-foreground hover:bg-surface-hover",
         className
       )}
     >

@@ -29,12 +29,12 @@ export function Logo({ className, onClick }: { className?: string; onClick?: () 
         // asset invented), just given more visual room to read as a
         // deliberate brand mark rather than a small inline label.
         "inline-flex h-9 shrink-0 items-center text-xl tracking-tight",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
         className
       )}
     >
-      <span className="font-semibold text-foreground">DAN</span>
-      <span className="font-medium text-secondary">SHOP</span>
+      <span className="font-bold text-foreground">DAN</span>
+      <span className="font-bold text-primary">SHOP</span>
     </Link>
   );
 }

@@ -162,8 +162,8 @@ export function SearchResultsView({ query, products }: { query: string; products
                   type="button"
                   onClick={() => setPricePreset(active ? { key: "clear", min: "", max: "" } : preset)}
                   aria-pressed={active}
-                  className={`rounded-full border px-3.5 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${
-                    active ? "border-black bg-black text-white" : "border-border bg-white text-foreground hover:bg-surface"
+                  className={`rounded-full border px-3.5 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                    active ? "border-primary bg-primary text-white" : "border-border bg-surface-elevated text-foreground hover:bg-surface-hover"
                   }`}
                 >
                   {pricePresetLabel(preset, t)}
@@ -181,7 +181,7 @@ export function SearchResultsView({ query, products }: { query: string; products
               aria-label={`${t("games.filters.priceLabel")} — ${t("games.filters.priceMin")}`}
               value={minPrice}
               onChange={(event) => setMinPrice(event.target.value)}
-              className="h-11 w-full rounded-full border border-border bg-white px-4 text-[15px] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+              className="h-11 w-full rounded-full border border-border bg-surface-elevated px-4 text-[15px] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             />
             <span className="text-secondary" aria-hidden="true">
               –
@@ -195,7 +195,7 @@ export function SearchResultsView({ query, products }: { query: string; products
               aria-label={`${t("games.filters.priceLabel")} — ${t("games.filters.priceMax")}`}
               value={maxPrice}
               onChange={(event) => setMaxPrice(event.target.value)}
-              className="h-11 w-full rounded-full border border-border bg-white px-4 text-[15px] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+              className="h-11 w-full rounded-full border border-border bg-surface-elevated px-4 text-[15px] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             />
           </div>
         </FilterField>
@@ -225,7 +225,7 @@ export function SearchResultsView({ query, products }: { query: string; products
                   point as Games (§13's 768/834px must never show a
                   permanent sidebar). */}
               <aside className="hidden shrink-0 lg:sticky lg:top-24 lg:block lg:w-72 xl:w-80">
-                <div className="flex flex-col gap-6 rounded-2xl border border-border bg-white p-6">
+                <div className="flex flex-col gap-6 rounded-2xl border border-border bg-surface-elevated p-6">
                   {renderFilterFields("search-filter")}
                   <Button
                     type="button"
@@ -245,12 +245,12 @@ export function SearchResultsView({ query, products }: { query: string; products
                   <button
                     type="button"
                     onClick={() => setDrawerOpen(true)}
-                    className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 lg:hidden"
+                    className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-elevated px-4 py-2.5 text-sm font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 lg:hidden"
                   >
                     <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
                     {t("games.filters.filtersButton")}
                     {activeFilterCount > 0 && (
-                      <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1.5 text-xs font-semibold text-white">
+                      <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs font-semibold text-white">
                         {activeFilterCount}
                       </span>
                     )}
@@ -296,7 +296,7 @@ export function SearchResultsView({ query, products }: { query: string; products
                     <button
                       type="button"
                       onClick={clearFilters}
-                      className="shrink-0 whitespace-nowrap px-1 text-xs font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                      className="shrink-0 whitespace-nowrap px-1 text-xs font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                     >
                       {t("games.clearFilters")}
                     </button>
@@ -322,7 +322,7 @@ export function SearchResultsView({ query, products }: { query: string; products
                   // copy), but reusing `search.noResultsTitle` rather than
                   // `games.noResultsTitle` since this is a cross-catalog
                   // results page, not a games-only one.
-                  <div className="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-border bg-white px-6 py-16 text-center">
+                  <div className="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-border bg-surface-elevated px-6 py-16 text-center">
                     <p className="text-base font-semibold text-foreground">{t("search.noResultsTitle")}</p>
                     <Button type="button" variant="secondary" onClick={clearFilters}>
                       {t("games.clearFilters")}
@@ -332,7 +332,7 @@ export function SearchResultsView({ query, products }: { query: string; products
               </div>
             </div>
           ) : (
-            <div className="mt-6 flex flex-col items-center gap-4 rounded-2xl border border-border bg-white px-6 py-16 text-center">
+            <div className="mt-6 flex flex-col items-center gap-4 rounded-2xl border border-border bg-surface-elevated px-6 py-16 text-center">
               <p className="text-base font-semibold text-foreground">{t("search.noResultsTitle")}</p>
               <p className="max-w-sm text-sm text-secondary">{t("search.noResultsBody")}</p>
 
@@ -346,7 +346,7 @@ export function SearchResultsView({ query, products }: { query: string; products
                       key={category.id}
                       href={category.route}
                       prefetch={false}
-                      className="rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                      className="rounded-full border border-border bg-surface-elevated px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                     >
                       {t(category.nameKey)}
                     </Link>

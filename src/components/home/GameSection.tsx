@@ -52,7 +52,7 @@ export function GameSection({
                 <Link
                   href={viewAllHref}
                   prefetch={false}
-                  className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                  className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   {t("common.viewAll")}
                 </Link>

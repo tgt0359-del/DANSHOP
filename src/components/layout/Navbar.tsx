@@ -275,7 +275,7 @@ export function Navbar({
             // a plain white-on-white bordered box — reads as a distinct
             // "search box" sitting inside the white header rather than
             // just an outline, restrained radius (rounded-xl, not a pill).
-            "h-10 w-full rounded-xl border border-transparent bg-surface pl-10 text-sm text-foreground placeholder:text-secondary transition-colors focus-visible:border-border focus-visible:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+            "h-10 w-full rounded-xl border border-border bg-surface pl-10 text-sm text-foreground placeholder:text-muted transition-colors hover:border-border-strong focus-visible:border-primary focus-visible:bg-surface-elevated focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
             hasQuery ? "pr-9" : "pr-4"
           )}
         />
@@ -289,7 +289,7 @@ export function Navbar({
             type="button"
             onClick={clearSearch}
             aria-label={t("actions.clearSearch")}
-            className="absolute right-2 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+            className="absolute right-2 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-secondary transition-colors hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <X className="h-3.5 w-3.5" aria-hidden="true" />
           </button>
@@ -320,8 +320,8 @@ export function Navbar({
         // through a translucent bar, which a fully opaque header no
         // longer needs. The scroll-triggered shadow stays as a small,
         // optional depth cue (never "heavy" — shadow-sm only).
-        "sticky top-0 z-40 border-b border-border bg-white transition-shadow duration-200",
-        scrolled && "shadow-sm"
+        "sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 transition-shadow duration-200",
+        scrolled && "shadow-lg shadow-black/20"
       )}
     >
       {/*
@@ -333,7 +333,7 @@ export function Navbar({
           - A taller row (64px → 72px) for real extra breathing room.
           - Nav items are now uppercase with letter-spacing and their own
             padded, individually-hoverable "slot" (rounded-lg, subtle
-            hover:bg-surface) — reads as a row of discrete controls, not
+            hover:bg-surface-hover) — reads as a row of discrete controls, not
             plain inline text links — with the active item's indicator a
             short, centered underline bar (absolutely positioned, fixed
             width) instead of a full-width border, closer to "Games /
@@ -388,10 +388,10 @@ export function Navbar({
                 prefetch={false}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative whitespace-nowrap rounded-lg px-1.5 py-2 text-[13px] font-medium leading-[1.3] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 lg:px-1 lg:text-xs xl:text-[13px]",
+                  "relative whitespace-nowrap rounded-lg px-1.5 py-2 text-[13px] font-medium leading-[1.3] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 lg:px-1 lg:text-xs xl:text-[13px]",
                   active
-                    ? "bg-surface font-semibold text-foreground"
-                    : "text-secondary hover:bg-surface hover:text-foreground"
+                    ? "font-semibold text-foreground"
+                    : "text-secondary hover:bg-surface-hover hover:text-foreground"
                 )}
               >
                 {t(category.nameKey)}
@@ -414,7 +414,7 @@ export function Navbar({
                     layoutId="nav-active-indicator"
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     aria-hidden="true"
-                    className="absolute inset-x-0 -bottom-0.5 mx-auto h-0.5 w-4 rounded-full bg-foreground"
+                    className="absolute inset-x-0 -bottom-0.5 mx-auto h-0.5 w-4 rounded-full bg-primary"
                   />
                 )}
               </Link>
@@ -501,7 +501,7 @@ export function Navbar({
               {totalQuantity > 0 && (
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[10px] font-semibold leading-none text-white"
+                  className="pointer-events-none absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold leading-none text-white"
                 >
                   {totalQuantity}
                 </span>

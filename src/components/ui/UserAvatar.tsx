@@ -37,7 +37,7 @@ export function UserAvatar({ user, size = "md", className }: { user: User; size?
     <span
       aria-hidden="true"
       className={cn(
-        "flex shrink-0 items-center justify-center rounded-full bg-black font-semibold text-white",
+        "flex shrink-0 items-center justify-center rounded-full bg-primary font-semibold text-white",
         sizeClasses[size],
         className
       )}

@@ -57,7 +57,7 @@ export function TopUpLandingView({ games }: { games: Product[] }) {
       <Link
         href="/"
         prefetch={false}
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         {t("marketplace.backToHome")}
@@ -85,7 +85,7 @@ export function TopUpLandingView({ games }: { games: Product[] }) {
           onChange={(event) => setQuery(event.target.value)}
           placeholder={t("topup.searchPlaceholder")}
           aria-label={t("topup.searchPlaceholder")}
-          className="h-11 w-full rounded-full border border-border bg-white pl-10 pr-4 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="h-11 w-full rounded-full border border-border bg-surface-elevated pl-10 pr-4 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         />
       </div>
 
@@ -116,10 +116,10 @@ export function TopUpLandingView({ games }: { games: Product[] }) {
                 onClick={() => setActiveCategory(filter.value)}
                 aria-pressed={selected}
                 className={cn(
-                  "rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+                  "rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                   selected
-                    ? "border-black bg-black text-white"
-                    : "border-border bg-white text-foreground hover:border-foreground/40"
+                    ? "border-primary bg-primary text-white"
+                    : "border-border bg-surface-elevated text-foreground hover:border-border-strong"
                 )}
               >
                 {t(filter.labelKey)}
@@ -140,7 +140,7 @@ export function TopUpLandingView({ games }: { games: Product[] }) {
           ))}
         </div>
       ) : (
-        <div className="mt-6 flex flex-col items-center gap-4 rounded-2xl border border-border bg-white px-6 py-16 text-center">
+        <div className="mt-6 flex flex-col items-center gap-4 rounded-2xl border border-border bg-surface-elevated px-6 py-16 text-center">
           <p className="text-base font-semibold text-foreground">{t("marketplace.noResultsTitle")}</p>
         </div>
       )}

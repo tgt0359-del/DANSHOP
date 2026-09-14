@@ -17,7 +17,7 @@ function BackLink({ label, onClick }: { label: string; onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-1 text-sm font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+      className="inline-flex items-center gap-1 text-sm font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     >
       <ChevronLeft className="h-4 w-4" aria-hidden="true" />
       {label}
@@ -128,19 +128,19 @@ export function PhoneAuthFlow({ onBack, onSuccess }: { onBack: () => void; onSuc
             aria-invalid={otpMissing}
             aria-describedby={otpMissing ? "phone-otp-error" : undefined}
             className={cn(
-              "h-11 w-full rounded-full border bg-white px-4 text-center text-lg tracking-[0.3em] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+              "h-11 w-full rounded-full border bg-surface-elevated px-4 text-center text-lg tracking-[0.3em] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
               otpMissing ? "border-red-500" : "border-border"
             )}
           />
           {otpMissing && (
-            <p id="phone-otp-error" role="alert" className="text-xs text-red-600">
+            <p id="phone-otp-error" role="alert" className="text-xs text-danger">
               {t("topup.fieldRequired")}
             </p>
           )}
         </div>
 
         {errorKey && (
-          <p role="alert" className="text-sm text-red-600">
+          <p role="alert" className="text-sm text-danger">
             {t(errorKey)}
           </p>
         )}
@@ -167,7 +167,7 @@ export function PhoneAuthFlow({ onBack, onSuccess }: { onBack: () => void; onSuc
             const next = PHONE_COUNTRIES.find((candidate) => candidate.code === event.target.value);
             if (next) setCountry(next);
           }}
-          className="h-11 w-full rounded-full border border-border bg-white px-4 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="h-11 w-full rounded-full border border-border bg-surface-elevated px-4 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {PHONE_COUNTRIES.map((candidate) => (
             <option key={candidate.code} value={candidate.code}>
@@ -199,20 +199,20 @@ export function PhoneAuthFlow({ onBack, onSuccess }: { onBack: () => void; onSuc
             aria-describedby={phoneInvalid ? "phone-number-error" : undefined}
             aria-label={`${t("auth.phoneNumberLabel")} (${country.dialCode})`}
             className={cn(
-              "h-11 w-full rounded-full border bg-white px-4 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+              "h-11 w-full rounded-full border bg-surface-elevated px-4 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
               phoneInvalid ? "border-red-500" : "border-border"
             )}
           />
         </div>
         {phoneInvalid && (
-          <p id="phone-number-error" role="alert" className="text-xs text-red-600">
+          <p id="phone-number-error" role="alert" className="text-xs text-danger">
             {t("auth.phoneInvalid")}
           </p>
         )}
       </div>
 
       {errorKey && (
-        <p role="alert" className="text-sm text-red-600">
+        <p role="alert" className="text-sm text-danger">
           {t(errorKey)}
         </p>
       )}

@@ -82,7 +82,7 @@ export function CategoryTypeView({ categorySlug, products }: { categorySlug: str
       <Link
         href="/"
         prefetch={false}
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         {t("marketplace.backToHome")}
@@ -121,7 +121,7 @@ export function CategoryTypeView({ categorySlug, products }: { categorySlug: str
           ))}
         </div>
       ) : (
-        <div className="mt-6 flex flex-col items-center gap-4 rounded-2xl border border-border bg-white px-6 py-16 text-center">
+        <div className="mt-6 flex flex-col items-center gap-4 rounded-2xl border border-border bg-surface-elevated px-6 py-16 text-center">
           <p className="text-base font-semibold text-foreground">{t("marketplace.noResultsTitle")}</p>
           <Link href="/" prefetch={false} className="text-sm font-medium text-foreground underline underline-offset-2">
             {t("marketplace.backToHome")}

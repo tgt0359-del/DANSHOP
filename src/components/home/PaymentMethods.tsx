@@ -28,7 +28,7 @@ export function PaymentMethods() {
             {paymentMethods.map(({ name, icon: Icon }) => (
               <div
                 key={name}
-                className="flex flex-col items-center justify-center gap-2 rounded-xl border border-border bg-white px-3 py-4 text-center"
+                className="flex flex-col items-center justify-center gap-2 rounded-xl border border-border bg-surface-elevated px-3 py-4 text-center"
               >
                 <Icon className="h-5 w-5 text-secondary" aria-hidden="true" />
                 <span className="text-xs font-semibold leading-snug text-foreground sm:text-sm">{name}</span>

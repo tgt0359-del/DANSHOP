@@ -11,15 +11,15 @@ export interface ButtonProps extends HTMLMotionProps<"button"> {
 }
 
 const baseClasses =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-xl font-semibold tracking-tight transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50";
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: "bg-black text-white hover:bg-neutral-800",
-  secondary: "bg-white text-foreground border border-border hover:bg-surface",
-  ghost: "bg-transparent text-foreground hover:bg-surface",
+  primary: "bg-primary text-white hover:bg-primary-hover",
+  secondary: "bg-surface-elevated text-foreground border border-border hover:border-border-strong hover:bg-surface-hover",
+  ghost: "bg-transparent text-foreground hover:bg-surface-hover",
   // For use on dark/photographic backgrounds, e.g. the homepage hero.
-  inverse: "bg-white text-black hover:bg-neutral-200",
-  inverseOutline: "bg-transparent text-white border border-white/70 hover:bg-white/10",
+  inverse: "bg-white text-[#0b0d10] hover:bg-neutral-200",
+  inverseOutline: "bg-white/5 text-white border border-white/25 backdrop-blur-sm hover:bg-white/10 hover:border-white/40",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {

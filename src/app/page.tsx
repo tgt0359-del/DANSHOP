@@ -82,7 +82,7 @@ export default function Home() {
           "extremely subtle background variation"), not a wash of
           different tones per section. Homepage-only wrapper — no shared
           component or global token changes. */}
-      <div className="border-y border-border bg-white">
+      <div className="border-y border-border bg-surface-elevated">
         <CategoryGrid />
         <CategoryLinks />
         <MarketplaceCategories />

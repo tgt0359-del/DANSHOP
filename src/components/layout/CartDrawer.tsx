@@ -81,7 +81,7 @@ export function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/40"
+            className="fixed inset-0 z-50 bg-black/60"
             onClick={closeCart}
             aria-hidden="true"
           />
@@ -94,7 +94,7 @@ export function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col bg-white shadow-xl sm:max-w-md"
+            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col bg-surface-elevated shadow-xl sm:max-w-md"
           >
             <div className="flex h-16 shrink-0 items-center justify-between border-b border-border px-4">
               <div className="flex items-baseline gap-2">
@@ -155,7 +155,7 @@ export function CartDrawer() {
                           href={href}
                           prefetch={false}
                           onClick={closeCart}
-                          className="line-clamp-1 text-sm font-medium text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                          className="line-clamp-1 text-sm font-medium text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                         >
                           {game.title}
                         </Link>
@@ -178,7 +178,7 @@ export function CartDrawer() {
                               onClick={() => updateQuantity(slug, quantity - 1, variantId)}
                               disabled={quantity <= 1}
                               aria-label={`${t("cart.decreaseQuantity")} — ${game.title}`}
-                              className="flex h-7 w-7 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
+                              className="flex h-7 w-7 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
                             >
                               <Minus className="h-3.5 w-3.5" aria-hidden="true" />
                             </button>
@@ -193,7 +193,7 @@ export function CartDrawer() {
                               type="button"
                               onClick={() => updateQuantity(slug, quantity + 1, variantId)}
                               aria-label={`${t("cart.increaseQuantity")} — ${game.title}`}
-                              className="flex h-7 w-7 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                              className="flex h-7 w-7 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                             >
                               <Plus className="h-3.5 w-3.5" aria-hidden="true" />
                             </button>
@@ -203,7 +203,7 @@ export function CartDrawer() {
                             type="button"
                             onClick={() => removeFromCart(slug, variantId)}
                             aria-label={`${t("cart.removeItem")} — ${game.title}`}
-                            className="flex h-7 w-7 items-center justify-center rounded-full text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                            className="flex h-7 w-7 items-center justify-center rounded-full text-secondary transition-colors hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                           >
                             <Trash2 className="h-4 w-4" aria-hidden="true" />
                           </button>
@@ -227,7 +227,7 @@ export function CartDrawer() {
                       onClick={() => setPromoOpen((prev) => !prev)}
                       aria-expanded={promoOpen}
                       aria-controls="cart-promo-code-fields"
-                      className="flex items-center gap-1.5 text-xs font-medium text-secondary transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                      className="flex items-center gap-1.5 text-xs font-medium text-secondary transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                     >
                       <Tag className="h-3.5 w-3.5" aria-hidden="true" />
                       <span>{t("cart.promoCode")}</span>

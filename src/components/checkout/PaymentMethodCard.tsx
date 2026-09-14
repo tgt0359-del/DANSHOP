@@ -24,8 +24,8 @@ export function PaymentMethodCard({ name, description, icon: Icon, selected, onS
   return (
     <label
       className={cn(
-        "flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-4 transition-colors focus-within:ring-2 focus-within:ring-black focus-within:ring-offset-2",
-        selected ? "border-black bg-white" : "border-border bg-surface hover:bg-white"
+        "flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-4 transition-colors focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2",
+        selected ? "border-primary bg-surface-elevated" : "border-border bg-surface hover:bg-surface-elevated"
       )}
     >
       <input
@@ -39,7 +39,7 @@ export function PaymentMethodCard({ name, description, icon: Icon, selected, onS
       <span
         className={cn(
           "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border sm:h-11 sm:w-11",
-          selected ? "border-black text-foreground" : "border-border text-secondary"
+          selected ? "border-primary text-foreground" : "border-border text-secondary"
         )}
       >
         <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
@@ -52,10 +52,10 @@ export function PaymentMethodCard({ name, description, icon: Icon, selected, onS
         aria-hidden="true"
         className={cn(
           "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border",
-          selected ? "border-black" : "border-border"
+          selected ? "border-primary" : "border-border"
         )}
       >
-        {selected && <span className="h-3 w-3 rounded-full bg-black" />}
+        {selected && <span className="h-3 w-3 rounded-full bg-primary" />}
       </span>
     </label>
   );

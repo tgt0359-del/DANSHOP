@@ -117,7 +117,7 @@ export function EmailOtpVerificationView({ email, onVerified }: { email: string;
         />
 
         {errorKey && (
-          <p id="email-otp-error" role="alert" className="text-center text-sm text-red-600">
+          <p id="email-otp-error" role="alert" className="text-center text-sm text-danger">
             {t(errorKey)}
           </p>
         )}
@@ -138,7 +138,7 @@ export function EmailOtpVerificationView({ email, onVerified }: { email: string;
           onClick={() => void handleResend()}
           disabled={resendCooldown > 0 || resending}
           aria-live="polite"
-          className="text-sm font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-secondary disabled:no-underline disabled:hover:no-underline"
+          className="text-sm font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-secondary disabled:no-underline disabled:hover:no-underline"
         >
           {resending
             ? t("auth.working")
@@ -156,7 +156,7 @@ export function EmailOtpVerificationView({ email, onVerified }: { email: string;
         <Link
           href="/login"
           prefetch={false}
-          className="font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {t("auth.switchToSignIn")}
         </Link>

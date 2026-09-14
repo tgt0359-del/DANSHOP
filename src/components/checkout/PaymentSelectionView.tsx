@@ -55,7 +55,7 @@ export function PaymentSelectionView() {
         <div className="mt-8 grid grid-cols-1 gap-8 sm:mt-10 lg:mt-12 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_460px]">
           {/* Left column: the payment method options. */}
           <div className="flex flex-col gap-6">
-            <section aria-labelledby="payment-selection-heading" className="rounded-2xl border border-border bg-white p-6 sm:p-8">
+            <section aria-labelledby="payment-selection-heading" className="rounded-2xl border border-border bg-surface-elevated p-6 sm:p-8">
               <h2 id="payment-selection-heading" className="text-lg font-semibold text-foreground">
                 {t("checkout.paymentMethod")}
               </h2>

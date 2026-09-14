@@ -73,8 +73,8 @@ export function ProductGallery({ game, images }: { game: Game; images: string[] 
               aria-label={t("gameDetail.viewImage").replace("{index}", String(index + 1))}
               onClick={() => setSelectedIndex(index)}
               className={cn(
-                "h-14 w-20 shrink-0 overflow-hidden rounded-lg border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
-                index === selectedIndex ? "border-black" : "border-transparent hover:border-border"
+                "h-14 w-20 shrink-0 overflow-hidden rounded-lg border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+                index === selectedIndex ? "border-primary" : "border-transparent hover:border-border"
               )}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- see above */}

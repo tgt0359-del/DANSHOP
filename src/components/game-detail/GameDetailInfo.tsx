@@ -186,7 +186,7 @@ export function GameDetailInfo({ game, stockStatus }: { game: Game; stockStatus:
           now share the same "clear, trustworthy purchase area" treatment —
           no control, state, or handler here changed, only the container
           around them. */}
-      <div className="mt-2 flex flex-col gap-4 rounded-2xl border border-border bg-white p-4 sm:p-5">
+      <div className="mt-2 flex flex-col gap-4 rounded-2xl border border-border bg-surface-elevated p-4 sm:p-5">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-1 rounded-full border border-border">
             <button
@@ -194,7 +194,7 @@ export function GameDetailInfo({ game, stockStatus }: { game: Game; stockStatus:
               onClick={decreaseQuantity}
               disabled={outOfStock || quantity <= 1}
               aria-label={`${t("cart.decreaseQuantity")} — ${game.title}`}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
             >
               <Minus className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -210,7 +210,7 @@ export function GameDetailInfo({ game, stockStatus }: { game: Game; stockStatus:
               onClick={increaseQuantity}
               disabled={outOfStock}
               aria-label={`${t("cart.increaseQuantity")} — ${game.title}`}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
             >
               <Plus className="h-4 w-4" aria-hidden="true" />
             </button>

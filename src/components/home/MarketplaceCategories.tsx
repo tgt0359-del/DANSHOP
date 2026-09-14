@@ -43,9 +43,9 @@ export function MarketplaceCategories() {
                   // hover treatments) — one consistent "card/chip" feel
                   // across both category sections instead of two slightly
                   // different ones.
-                  className="group flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-white p-4 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                  className="group flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-surface-elevated p-4 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-surface text-foreground transition-colors duration-200 group-hover:bg-black group-hover:text-white">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-surface text-foreground transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <span className="text-xs font-medium leading-snug text-foreground sm:text-sm">{t(category.nameKey)}</span>

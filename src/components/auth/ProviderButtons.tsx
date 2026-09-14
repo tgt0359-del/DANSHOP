@@ -67,7 +67,7 @@ export function ProviderButtons({ onPhoneClick }: { onPhoneClick: () => void }) 
         {t("auth.continueWithPhone")}
       </Button>
       {errorKey && (
-        <p role="alert" className="text-center text-xs text-red-600">
+        <p role="alert" className="text-center text-xs text-danger">
           {t(errorKey)}
         </p>
       )}

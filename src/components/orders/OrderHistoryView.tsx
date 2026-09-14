@@ -35,14 +35,14 @@ export function OrderHistoryView() {
             )}
 
             {status === "error" && (
-              <div role="alert" className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-white py-16 text-center">
+              <div role="alert" className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-surface-elevated py-16 text-center">
                 <p className="text-base font-semibold text-foreground">{t("orders.errorTitle")}</p>
                 <p className="max-w-sm text-sm text-secondary">{t("orders.errorDescription")}</p>
               </div>
             )}
 
             {status === "ready" && orders.length === 0 && (
-              <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-white py-16 text-center">
+              <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-surface-elevated py-16 text-center">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-foreground">
                   <PackageOpen className="h-6 w-6" aria-hidden="true" />
                 </span>

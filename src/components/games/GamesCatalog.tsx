@@ -135,7 +135,7 @@ export function FilterField({
 // only ever used by GamesCatalog's own price min/max fields, so bumping it
 // doesn't affect any other page's inputs.
 const numberInputClass =
-  "h-11 w-full rounded-full border border-border bg-white px-4 text-[15px] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2";
+  "h-11 w-full rounded-full border border-border bg-surface-elevated px-4 text-[15px] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
 
 /** One removable "Category: Strategy ×" pill (Step 49). A plain button,
  * not the static `Badge` component — chips here are interactive.
@@ -143,13 +143,13 @@ const numberInputClass =
  * this exact control instead of a duplicated copy. */
 export function FilterChip({ label, onRemove, removeLabel }: { label: string; onRemove: () => void; removeLabel: string }) {
   return (
-    <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-white py-1 pl-3 pr-1.5 text-xs font-medium text-foreground">
+    <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface-elevated py-1 pl-3 pr-1.5 text-xs font-medium text-foreground">
       {label}
       <button
         type="button"
         onClick={onRemove}
         aria-label={removeLabel}
-        className="flex h-4 w-4 items-center justify-center rounded-full text-secondary hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+        className="flex h-4 w-4 items-center justify-center rounded-full text-secondary hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
         <X className="h-3 w-3" aria-hidden="true" />
       </button>
@@ -493,8 +493,8 @@ export function GamesCatalog({ products }: { products: Product[] }) {
                   type="button"
                   onClick={() => setPricePreset(active ? { key: "clear", min: "", max: "" } : preset)}
                   aria-pressed={active}
-                  className={`rounded-full border px-3.5 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${
-                    active ? "border-black bg-black text-white" : "border-border bg-white text-foreground hover:bg-surface"
+                  className={`rounded-full border px-3.5 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                    active ? "border-primary bg-primary text-white" : "border-border bg-surface-elevated text-foreground hover:bg-surface-hover"
                   }`}
                 >
                   {pricePresetLabel(preset)}
@@ -566,7 +566,7 @@ export function GamesCatalog({ products }: { products: Product[] }) {
               onChange={(event) => setQuery(event.target.value)}
               placeholder={t("games.searchPlaceholder")}
               aria-label={t("games.searchPlaceholder")}
-              className="h-[50px] w-full rounded-[14px] border border-border bg-white pl-12 pr-4 text-[15px] text-foreground shadow-sm placeholder:text-secondary transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+              className="h-[50px] w-full rounded-[14px] border border-border bg-surface-elevated pl-12 pr-4 text-[15px] text-foreground shadow-sm placeholder:text-secondary transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             />
           </div>
 
@@ -601,7 +601,7 @@ export function GamesCatalog({ products }: { products: Product[] }) {
                     size="sm"
                     disabled={!trendingScrollState.canScrollLeft}
                     onClick={() => scrollTrendingByPage(-1)}
-                    className="border border-border bg-white shadow-sm disabled:pointer-events-none disabled:opacity-40"
+                    className="border border-border bg-surface-elevated shadow-sm disabled:pointer-events-none disabled:opacity-40"
                   />
                   <IconButton
                     icon={<ChevronRight className="h-5 w-5" />}
@@ -609,7 +609,7 @@ export function GamesCatalog({ products }: { products: Product[] }) {
                     size="sm"
                     disabled={!trendingScrollState.canScrollRight}
                     onClick={() => scrollTrendingByPage(1)}
-                    className="border border-border bg-white shadow-sm disabled:pointer-events-none disabled:opacity-40"
+                    className="border border-border bg-surface-elevated shadow-sm disabled:pointer-events-none disabled:opacity-40"
                   />
                 </div>
               </div>
@@ -678,7 +678,7 @@ export function GamesCatalog({ products }: { products: Product[] }) {
               {trendingScrollState.widthPercent < 100 && (
                 <div className="relative mt-3 h-1 w-full overflow-hidden rounded-full bg-surface" aria-hidden="true">
                   <div
-                    className="absolute inset-y-0 rounded-full bg-foreground/50 transition-[left] duration-150 ease-out"
+                    className="absolute inset-y-0 rounded-full bg-primary/60 transition-[left] duration-150 ease-out"
                     style={{ width: `${trendingScrollState.widthPercent}%`, left: `${trendingScrollState.leftPercent}%` }}
                   />
                 </div>
@@ -709,7 +709,7 @@ export function GamesCatalog({ products }: { products: Product[] }) {
                 the shared `renderFilterFields()`/`MultiSelectFilter`/
                 `FilterField` components (see their own comments). */}
             <aside className="hidden shrink-0 lg:sticky lg:top-24 lg:block lg:w-80">
-              <div className="flex flex-col gap-8 rounded-2xl border border-border bg-white p-7 shadow-sm">
+              <div className="flex flex-col gap-8 rounded-2xl border border-border bg-surface-elevated p-7 shadow-sm">
                 {renderFilterFields("filter")}
                 <Button
                   type="button"
@@ -746,12 +746,12 @@ export function GamesCatalog({ products }: { products: Product[] }) {
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(true)}
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 lg:hidden"
+                  className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-elevated px-4 py-2.5 text-sm font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 lg:hidden"
                 >
                   <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
                   {t("games.filters.filtersButton")}
                   {activeFilterCount > 0 && (
-                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1.5 text-xs font-semibold text-white">
+                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs font-semibold text-white">
                       {activeFilterCount}
                     </span>
                   )}
@@ -789,7 +789,7 @@ export function GamesCatalog({ products }: { products: Product[] }) {
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="shrink-0 whitespace-nowrap px-1 text-xs font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                    className="shrink-0 whitespace-nowrap px-1 text-xs font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     {t("games.clearFilters")}
                   </button>
@@ -807,7 +807,7 @@ export function GamesCatalog({ products }: { products: Product[] }) {
                   ))}
                 </div>
               ) : (
-                <div className="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-border bg-white px-6 py-16 text-center">
+                <div className="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-border bg-surface-elevated px-6 py-16 text-center">
                   <p className="text-base font-semibold text-foreground">{t("games.noResultsTitle")}</p>
                   <Button type="button" variant="secondary" onClick={clearFilters}>
                     {t("games.clearFilters")}

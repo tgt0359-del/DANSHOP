@@ -115,17 +115,17 @@ export function LoginView() {
             aria-invalid={Boolean(emailError || emailMissing)}
             aria-describedby={emailError ? "login-email-error" : emailMissing ? "login-email-required" : undefined}
             className={cn(
-              "h-11 w-full rounded-full border bg-white px-4 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+              "h-11 w-full rounded-full border bg-surface-elevated px-4 text-sm text-foreground placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
               emailError || emailMissing ? "border-red-500" : "border-border"
             )}
           />
           {emailMissing && (
-            <p id="login-email-required" role="alert" className="text-xs text-red-600">
+            <p id="login-email-required" role="alert" className="text-xs text-danger">
               {emailMissing}
             </p>
           )}
           {!emailMissing && emailError && (
-            <p id="login-email-error" role="alert" className="text-xs text-red-600">
+            <p id="login-email-error" role="alert" className="text-xs text-danger">
               {emailError}
             </p>
           )}
@@ -143,7 +143,7 @@ export function LoginView() {
           <button
             type="button"
             onClick={() => setForgotNotice(true)}
-            className="mt-2 text-xs font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+            className="mt-2 text-xs font-medium text-secondary underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {t("auth.forgotPassword")}
           </button>
@@ -155,7 +155,7 @@ export function LoginView() {
         </div>
 
         {errorKey && (
-          <p role="alert" className="text-sm text-red-600">
+          <p role="alert" className="text-sm text-danger">
             {t(errorKey)}
           </p>
         )}
@@ -169,7 +169,7 @@ export function LoginView() {
         <Link
           href="/register"
           prefetch={false}
-          className="font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {t("auth.switchToSignUp")}
         </Link>

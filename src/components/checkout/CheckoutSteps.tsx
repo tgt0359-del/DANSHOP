@@ -54,10 +54,10 @@ export function CheckoutSteps({ current }: { current: CheckoutStepKey }) {
                 className={cn(
                   "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-semibold sm:h-8 sm:w-8 sm:text-sm",
                   isCurrent
-                    ? "border-black bg-black text-white"
+                    ? "border-primary bg-primary text-white"
                     : isDone
-                      ? "border-black bg-white text-foreground"
-                      : "border-border bg-white text-secondary"
+                      ? "border-primary bg-surface-elevated text-foreground"
+                      : "border-border bg-surface-elevated text-secondary"
                 )}
               >
                 {isDone ? <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" /> : index + 1}

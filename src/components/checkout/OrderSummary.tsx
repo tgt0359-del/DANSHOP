@@ -61,7 +61,7 @@ export function OrderSummary({ lines, subtotal, totalSavings, total, onEditCart,
   return (
     <section
       aria-labelledby="checkout-summary-heading"
-      className={cn("rounded-2xl border border-border bg-white p-5 sm:p-6", isLg && "xl:p-8")}
+      className={cn("rounded-2xl border border-border bg-surface-elevated p-5 sm:p-6", isLg && "xl:p-8")}
     >
       <div className="flex items-center justify-between">
         <h2
@@ -74,7 +74,7 @@ export function OrderSummary({ lines, subtotal, totalSavings, total, onEditCart,
           <button
             type="button"
             onClick={onEditCart}
-            className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+            className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {t("checkout.editCart")}
           </button>
