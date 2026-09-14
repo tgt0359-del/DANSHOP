@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "danshop-dev",
+      "runtimeExecutable": "C:\\danshop.com\\.claude\\dev.cmd",
+      "runtimeArgs": [],
+      "port": 3000
+    },
+    {
+      "name": "danshop-start",
+      "runtimeExecutable": "C:\\danshop.com\\.claude\\start.cmd",
+      "runtimeArgs": [],
+      "port": 3001
+    }
+  ]
+}

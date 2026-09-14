@@ -1,26 +1,97 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* DANSHOP monochrome brand palette */
+  --background: #f3f4f6;
+  --surface: #f5f5f5;
+  --border-color: #e5e5e5;
+  --text-primary: #18181b;
+  /* ~4.8:1 contrast on white — passes WCAG AA for normal text. A lighter
+     "--text-muted" (~#a1a1aa, ~2.6:1) existed here previously and was
+     removed (Step 37 audit): it failed WCAG AA everywhere it was used for
+     actual text, so every former text-muted usage now uses this color
+     instead — there is no lower/lighter secondary text tone site-wide. */
+  --text-secondary: #71717a;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-surface: var(--surface);
+  --color-border: var(--border-color);
+  --color-foreground: var(--text-primary);
+  --color-secondary: var(--text-secondary);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /*
+   * Font stack for the whole site.
+   *
+   * Inter only draws Latin characters, so Noto Sans Lao and Noto Sans Thai
+   * are listed after it. The browser picks whichever font in the list can
+   * actually draw each character, so Lao text automatically renders in
+   * Noto Sans Lao and Thai text in Noto Sans Thai, all under this one
+   * "font-sans" utility class — no manual per-language switching needed.
+   */
+  --font-sans: var(--font-inter), var(--font-noto-lao), var(--font-noto-thai),
+    ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  /* Comfortable reading rhythm for body copy; headings override this with
+     a tighter line-height where they're set. */
+  line-height: 1.6;
+}
+
+/*
+ * Default visible keyboard-focus state, site-wide. Wrapped in Tailwind's
+ * "base" layer (rather than left unlayered) specifically so that
+ * components using `focus-visible:outline-none` + a ring (Button,
+ * IconButton, links, etc.) can actually suppress this and show their own
+ * ring instead — unlayered CSS always beats Tailwind's layered utilities
+ * regardless of source order, so without this, both the outline and the
+ * ring were rendering at once. Anything that doesn't specify its own
+ * focus-visible style still gets this as a sensible default.
+ */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Step 69 §12: respects the visitor's OS-level "reduce motion" preference
+ * for plain CSS transitions (hover/focus-visible color and border changes
+ * on buttons, links, cards, ... — Tailwind's `transition-colors` etc.),
+ * complementing the root layout's `<MotionConfig reducedMotion="user">`
+ * (which covers every Framer Motion animation instead). Together the two
+ * mean nothing on the site ignores this preference, without either one
+ * needing to touch individual components.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * UI-23 (Order Detail + Invoice Foundation) — site-wide print rule: the
+ * global site chrome (Navbar's <header>, Footer's <footer> — each used
+ * exactly once, nowhere else in the app) never belongs on a printed page,
+ * for any page, not only the order invoice this step was written for.
+ * Page-specific print behavior (hiding action buttons, letting the invoice
+ * card fill the page width, avoiding a mid-row page break on an invoice
+ * line) is handled locally with Tailwind's `print:` utilities instead —
+ * see OrderDetailView.tsx / OrderInvoice.tsx.
+ */
+@media print {
+  header,
+  footer {
+    display: none !important;
+  }
 }

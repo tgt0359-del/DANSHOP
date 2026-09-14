@@ -1,0 +1,50 @@
+-- DANSHOP — prevent self-service role escalation on public.users (Step 73)
+--
+-- WHAT THIS FILE DOES: narrows which COLUMNS of `public.users` the
+-- `authenticated` Postgres role may UPDATE, on top of (not instead of) the
+-- existing `users_update_own` RLS policy
+-- (20260907000000_danshop_full_schema.sql: `for update using (auth.uid()
+-- = id) with check (auth.uid() = id)`).
+--
+-- WHY: RLS is ROW-level, not column-level. `users_update_own` correctly
+-- ensures a signed-in user can only ever touch their OWN row, but it does
+-- not — and structurally cannot — stop that user from changing WHICH
+-- columns of their own row they update. Supabase's default schema
+-- provisioning grants broad table-level UPDATE to `authenticated` (RLS is
+-- meant to be the primary boundary), so today a signed-in user could, via
+-- a direct PostgREST call with nothing more than their own publishable-key
+-- session (no service-role key, no exploit beyond calling the same API
+-- the app itself uses), update their own `role` from 'customer' to
+-- 'admin'. Nothing in the current UI does this — no code anywhere calls
+-- `.from("users").update(...)` yet — but Step 73 §7/§8 explicitly asks to
+-- verify "do not allow users to change their own role," and relying on
+-- "the UI doesn't expose it" is not a real guarantee. This closes that
+-- gap at the database layer, the same place RLS already lives, rather
+-- than only in application code that a direct API call would bypass.
+--
+-- WHAT CAN STILL BE SELF-EDITED (once a future profile-edit feature adds
+-- the UI for it): `display_name`, `avatar_url`, `preferred_language`,
+-- `preferred_currency`, `updated_at` — genuine account preferences, never
+-- identity or authorization fields.
+--
+-- WHAT CAN NEVER BE SELF-EDITED via this grant: `id` (the auth.users FK —
+-- changing it would let a row impersonate a different account), `email`
+-- (must go through Supabase Auth's own verified email-change flow, not a
+-- direct table write, or `public.users.email` and `auth.users.email`
+-- would silently disagree), `role` (this file's whole purpose), and
+-- `created_at` (a historical fact, not a preference).
+--
+-- NON-DESTRUCTIVE / SAFE TO RE-RUN: `revoke` and `grant` are both
+-- idempotent — running this file more than once changes nothing further.
+-- This does not touch, weaken, or replace any RLS policy — RLS still
+-- applies in full underneath these narrower grants; a request must pass
+-- BOTH to succeed.
+--
+-- HOW TO APPLY: paste into the Supabase Dashboard's SQL Editor and run
+-- once — the same manual-application path already established for this
+-- project's other migrations (no CLI login, no database password, no
+-- service-role/secret key needed).
+
+revoke update on public.users from authenticated;
+grant update (display_name, avatar_url, preferred_language, preferred_currency, updated_at)
+  on public.users to authenticated;
