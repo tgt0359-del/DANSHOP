@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { AuthPrimaryButton } from "@/components/auth/AuthPrimaryButton";
 import { OtpInput } from "@/components/auth/OtpInput";
-import { Button } from "@/components/ui/Button";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useCurrentUserContext } from "@/lib/auth/CurrentUserProvider";
 import { mapAuthErrorKey } from "@/lib/auth/mapAuthErrorKey";
@@ -13,6 +13,26 @@ import { mapAuthErrorKey } from "@/lib/auth/mapAuthErrorKey";
  * server-side email rate limiting (Step 82 §6), which still applies
  * underneath regardless of this timer's state. */
 const RESEND_COOLDOWN_SECONDS = 60;
+
+/**
+ * STEP AUTH-01 — a display-only mask for the email shown on this screen
+ * (never affects the real address `verifyEmailOtp`/`resendEmailOtp` are
+ * called with below, which always uses the full, unmasked `email` prop).
+ * Keeps the first two characters and the last character of the local
+ * part and replaces the rest with a fixed run of asterisks (not one
+ * asterisk per hidden character — that would incidentally reveal the
+ * local part's exact length). "a@example.com" → "a****@example.com",
+ * "john.doe@example.com" → "jo****e@example.com".
+ */
+function maskEmail(email: string): string {
+  const atIndex = email.indexOf("@");
+  if (atIndex <= 0) return email;
+  const local = email.slice(0, atIndex);
+  const domain = email.slice(atIndex);
+  const visibleStart = local.slice(0, Math.min(2, local.length));
+  const visibleEnd = local.length > 2 ? local.slice(-1) : "";
+  return `${visibleStart}****${visibleEnd}${domain}`;
+}
 
 /**
  * The 6-digit email verification screen (Step 82 Part A) — replaces the
@@ -29,7 +49,19 @@ const RESEND_COOLDOWN_SECONDS = 60;
  * in this component's own state (via `OtpInput`) and are cleared the
  * instant verification resolves either way.
  */
-export function EmailOtpVerificationView({ email, onVerified }: { email: string; onVerified: () => void }) {
+export function EmailOtpVerificationView({
+  email,
+  onVerified,
+  onChangeEmail,
+}: {
+  email: string;
+  onVerified: () => void;
+  /** STEP AUTH-01: lets the visitor back out of this screen to fix a
+   * mistyped address — the caller (`RegisterView`) owns whether that
+   * means clearing its own `confirmationEmail` state to show the sign-up
+   * form again, or something else; this component only signals intent. */
+  onChangeEmail: () => void;
+}) {
   const { t } = useLanguage();
   const { verifyEmailOtp, resendEmailOtp } = useCurrentUserContext();
 
@@ -93,8 +125,8 @@ export function EmailOtpVerificationView({ email, onVerified }: { email: string;
   return (
     <div>
       <div role="status">
-        <h1 className="text-2xl font-semibold leading-snug text-foreground">{t("auth.otpVerifyTitle")}</h1>
-        <p className="mt-2 text-sm text-secondary">{t("auth.otpVerifyBody").replace("{email}", email)}</p>
+        <h1 className="text-2xl font-semibold leading-snug text-white">{t("auth.otpVerifyTitle")}</h1>
+        <p className="mt-2 text-sm text-neutral-400">{t("auth.otpVerifyBody").replace("{email}", maskEmail(email))}</p>
       </div>
 
       <form
@@ -117,28 +149,28 @@ export function EmailOtpVerificationView({ email, onVerified }: { email: string;
         />
 
         {errorKey && (
-          <p id="email-otp-error" role="alert" className="text-center text-sm text-red-600">
+          <p id="email-otp-error" role="alert" className="text-center text-sm text-red-400">
             {t(errorKey)}
           </p>
         )}
         {!errorKey && resendSucceeded && (
-          <p role="status" className="text-center text-sm text-secondary">
+          <p role="status" className="text-center text-sm text-emerald-400">
             {t("auth.otpResendSuccess")}
           </p>
         )}
 
-        <Button type="submit" variant="primary" size="lg" disabled={submitting || code.length !== 6} className="w-full">
+        <AuthPrimaryButton type="submit" disabled={submitting || code.length !== 6}>
           {submitting ? t("auth.working") : t("auth.verifyButton")}
-        </Button>
+        </AuthPrimaryButton>
       </form>
 
-      <div className="mt-6 text-center">
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-center">
         <button
           type="button"
           onClick={() => void handleResend()}
           disabled={resendCooldown > 0 || resending}
           aria-live="polite"
-          className="text-sm font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-secondary disabled:no-underline disabled:hover:no-underline"
+          className="text-sm font-medium text-[#1A9FFF] underline-offset-2 hover:text-[#168BE0] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A9FFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#151922] disabled:cursor-not-allowed disabled:text-neutral-500 disabled:no-underline disabled:hover:no-underline"
         >
           {resending
             ? t("auth.working")
@@ -146,17 +178,31 @@ export function EmailOtpVerificationView({ email, onVerified }: { email: string;
               ? t("auth.otpResendCooldown").replace("{seconds}", String(resendCooldown))
               : t("auth.otpResend")}
         </button>
+        <span className="text-sm text-neutral-600" aria-hidden="true">
+          ·
+        </span>
+        {/* STEP AUTH-01: lets a visitor who mistyped their address at
+            sign-up back out of this screen instead of being stuck waiting
+            on a code that can never arrive at the right inbox. */}
+        <button
+          type="button"
+          onClick={onChangeEmail}
+          disabled={submitting}
+          className="text-sm font-medium text-[#1A9FFF] underline-offset-2 hover:text-[#168BE0] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A9FFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#151922] disabled:cursor-not-allowed disabled:text-neutral-500 disabled:no-underline disabled:hover:no-underline"
+        >
+          {t("auth.otpChangeEmail")}
+        </button>
       </div>
 
       {/* Same navigability the old static "check your email" screen had
           (a way back to /login) — preserved so this replacement doesn't
           regress it, e.g. for a visitor who already verified elsewhere or
           typed the wrong email at sign-up. */}
-      <p className="mt-3 text-center text-sm text-secondary">
+      <p className="mt-3 text-center text-sm text-neutral-400">
         <Link
           href="/login"
           prefetch={false}
-          className="font-medium text-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="font-medium text-[#1A9FFF] underline-offset-2 hover:text-[#168BE0] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A9FFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#151922]"
         >
           {t("auth.switchToSignIn")}
         </Link>

@@ -8,6 +8,7 @@ import { Heart, Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { IconButton } from "@/components/ui/IconButton";
 import { Logo } from "@/components/ui/Logo";
+import { UserAvatar } from "@/components/ui/UserAvatar";
 import { AccountMenu } from "@/components/layout/AccountMenu";
 import { SettingsButton } from "@/components/layout/SettingsButton";
 import { SearchSuggestions, type SearchSuggestionItem } from "@/components/layout/SearchSuggestions";
@@ -20,6 +21,7 @@ import { hasVariants } from "@/data/productVariants";
 import { useCart } from "@/hooks/useCart";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSearch } from "@/hooks/useSearch";
+import { useCurrentUserContext } from "@/lib/auth/CurrentUserProvider";
 import { isNavLinkActive } from "@/lib/navigation/isNavLinkActive";
 import { gameToProduct } from "@/lib/products/productAdapter";
 import { platformTranslationKey } from "@/lib/products/platformLabels";
@@ -47,6 +49,16 @@ export function Navbar({
   const { t } = useLanguage();
   const { query, setQuery } = useSearch();
   const { totalQuantity, toggleCart } = useCart();
+  // STEP AUTH-03: `status` (not just `user`) drives the header icon below
+  // — "loading" (the instant right after a hard refresh, before the real
+  // session check resolves) and "guest" both fall back to the same
+  // neutral Lucide glyph. Never show the real avatar until `status` is
+  // genuinely "authenticated" — showing it any earlier would mean
+  // guessing, and showing the plain guest-looking icon for an
+  // already-authenticated visitor during that same window would be
+  // exactly the "flash of incorrect logged-out UI" this step's own
+  // requirements call out.
+  const { user, status: authStatus } = useCurrentUserContext();
   const router = useRouter();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -362,23 +374,44 @@ export function Navbar({
           <Logo />
         </div>
 
-        {/* UI-02.3: the uppercase + tracking-wide treatment from UI-02.2
-            read fine for short English words but fought the Lao/Thai
-            labels (e.g. "ກະເປົາເງິນ Steam" / "กระเป๋าเงิน Steam") — added
-            letter-spacing on scripts that stack combining vowel/tone marks
-            made them look cramped rather than clean, and without an
-            explicit `whitespace-nowrap` the browser's default wrapping let
-            a long label fold onto a second line inside its own narrow
-            slot. This pass: drops uppercase/tracking-wide in favor of each
-            language's own natural casing, sets a readable 13px/1.3
-            line-height, forces one line per label, and trades a chunk of
-            each item's own horizontal padding for real gap between items
-            (a label's "space to breathe" should come from the row, not
-            from padding widening the item's own hover/focus target only
-            on one axis). The gap steps up from lg (1024–1279, tighter) to
-            xl (1280px+, full 24px) since that's exactly the range Step
-            UI-02.x's own overflow testing found tightest. */}
-        <nav className="hidden items-center justify-center gap-1 lg:flex lg:gap-0 xl:gap-2" aria-label="Main">
+        {/* UI-02.3 (enlarge pass): sized and verified against real measured
+            widths (`nav.scrollWidth`/`clientWidth` and the grid's own
+            resolved `grid-template-columns`, not guesswork — an early
+            pass estimated available space without subtracting the
+            Container's own `px-8` padding and the grid's column gaps,
+            which was off by exactly that much and produced a config
+            that visibly overlapped the logo/search box; re-measured and
+            corrected). The Header's grid center track resolves to only
+            ~520px at exactly 1024px (the tightest real case: left zone
+            ~142px, right zone ~243px there, both fixed-content and
+            already as lean as they get without touching Search/Settings/
+            Wishlist/Account/Cart, which this step doesn't touch) and
+            ~634px at 1280px and up (the page's own `max-w-7xl` container
+            caps out there, so 1280 and 1440 share the exact same
+            available width). All 8 real English labels ("Mobile Games",
+            "Steam Wallet", "Game Top Up", ...) already fill essentially
+            all of the 1024px tier's budget at the ORIGINAL 12px/minimal-
+            padding sizing — measured directly: bumping to 13px alone
+            overflowed and visibly collided with the logo. So, per this
+            step's own "reduce gaps before reducing font at medium
+            widths" rule: `lg` (1024–1279) keeps the original 12px
+            (`text-xs`) with the original minimal padding/gap — there is
+            no slack left to spend there once real English content is
+            accounted for — and the real enlargement (14px, `xl:text-sm`,
+            plus a bit more padding/gap) applies at `xl` (1280px+), where
+            measured slack allows it without collision. `min-w-0` lets
+            this flex row shrink inside its `1fr` grid track instead of
+            forcing the track (and the whole header) wider than the
+            viewport — `flex-nowrap` (the flex default, stated explicitly
+            here) plus `whitespace-nowrap` on every label is what makes
+            wrapping structurally impossible rather than just unlikely.
+            `h-10`/`xl:h-11` (40px/44px) is a real height, not padding-
+            implied, so vertical comfort never has to trade off against
+            the horizontal budget above. */}
+        <nav
+          className="hidden min-w-0 flex-nowrap items-center justify-center gap-0 lg:flex xl:gap-0.5"
+          aria-label="Main"
+        >
           {navLinks.map((category) => {
             const active = isNavLinkActive(pathname, category.route);
             return (
@@ -388,7 +421,7 @@ export function Navbar({
                 prefetch={false}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative whitespace-nowrap rounded-lg px-1.5 py-2 text-[13px] font-medium leading-[1.3] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 lg:px-1 lg:text-xs xl:text-[13px]",
+                  "relative inline-flex h-10 items-center whitespace-nowrap rounded-lg px-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 xl:h-11 xl:px-1.5 xl:text-sm",
                   active
                     ? "bg-surface font-semibold text-foreground"
                     : "text-secondary hover:bg-surface hover:text-foreground"
@@ -483,7 +516,13 @@ export function Navbar({
             </div>
             <div className="relative" onBlur={handleAccountMenuBlur}>
               <IconButton
-                icon={<User className="h-5 w-5" />}
+                icon={
+                  authStatus === "authenticated" && user ? (
+                    <UserAvatar user={user} size="sm" />
+                  ) : (
+                    <User className="h-5 w-5" />
+                  )
+                }
                 aria-label={t("actions.account")}
                 aria-haspopup="menu"
                 aria-expanded={accountMenuOpen}

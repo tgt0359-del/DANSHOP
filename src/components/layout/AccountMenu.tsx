@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { LogIn, LogOut, Package, Settings, User, Heart, History } from "lucide-react";
+import { UserAvatar } from "@/components/ui/UserAvatar";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useAuthModal } from "@/lib/auth/AuthModalProvider";
 import { useCurrentUserContext } from "@/lib/auth/CurrentUserProvider";
@@ -61,9 +62,24 @@ export function AccountMenu({ open, onClose, id }: { open: boolean; onClose: () 
       id={id}
       className="absolute right-0 top-full z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-border bg-white shadow-xl"
     >
-      <p className="truncate border-b border-border px-4 py-3 text-xs font-semibold uppercase tracking-wider text-secondary">
-        {user ? user.email : t("account.menuHeading")}
-      </p>
+      {/* STEP AUTH-03: signed-in visitors get the same avatar (initials on
+          DANSHOP's signature black — `UserAvatar`'s own real-upload-ready
+          fallback, unchanged) plus their real display name and email,
+          instead of a plain heading — nothing here is a placeholder, both
+          strings come straight from the real Supabase-backed `user`. */}
+      {user ? (
+        <div className="flex items-center gap-2.5 border-b border-border px-4 py-3">
+          <UserAvatar user={user} size="sm" />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-semibold text-foreground">{user.displayName}</p>
+            <p className="truncate text-xs text-secondary">{user.email}</p>
+          </div>
+        </div>
+      ) : (
+        <p className="truncate border-b border-border px-4 py-3 text-xs font-semibold uppercase tracking-wider text-secondary">
+          {t("account.menuHeading")}
+        </p>
+      )}
 
       <nav aria-label={t("actions.account")} className="flex flex-col p-2">
         {links.map((link) => {

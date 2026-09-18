@@ -20,7 +20,15 @@ import type { OAuthProviderId } from "@/types/auth";
  * so this only tells the caller to show `PhoneAuthFlow` — no duplicated
  * phone logic lives here.
  *
- * Shared by `/login` and `/register` — one implementation, not two.
+ * PHASE A (Login/Register UI Redesign): currently unused by any page —
+ * both `/login` and `/register` now render `AuthSocialButtons.tsx`
+ * instead (Google/Discord/Facebook only, per that step's explicit
+ * requirements; neither Apple nor a phone entry point is in either page's
+ * spec). Deliberately left in place rather than deleted: its real Google/
+ * Apple OAuth calls and phone-flow trigger are correct, working code, not
+ * something that step asked to remove — only to stop rendering. Restore
+ * it as a page's social row again if Apple/phone sign-in is ever wanted
+ * back.
  */
 export function ProviderButtons({ onPhoneClick }: { onPhoneClick: () => void }) {
   const { t } = useLanguage();

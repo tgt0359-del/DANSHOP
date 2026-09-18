@@ -20,7 +20,18 @@ import { cn } from "@/lib/cn";
  * appropriate", while staying a single compact pill so the Header stays
  * clean (no duplicate controls).
  */
-export function SettingsButton({ className }: { className?: string }) {
+export function SettingsButton({
+  className,
+  tone = "default",
+}: {
+  className?: string;
+  /** LOGIN-UI-02: opt-in only — every existing call site (Header, Sidebar,
+   * Footer's light branch) omits this and renders exactly as before.
+   * `"inverse"` is for the new dark `AuthTopBar` only, where the default
+   * white pill/black-ring/`text-secondary` combination would be low-
+   * contrast against a `#0B0D10`–`#151922` background. */
+  tone?: "default" | "inverse";
+}) {
   const { locale, t } = useLanguage();
   const { currency } = useCurrency();
   const { openSettings } = useSettingsModal();
@@ -33,17 +44,19 @@ export function SettingsButton({ className }: { className?: string }) {
       aria-haspopup="dialog"
       aria-label={t("settings.openLabel")}
       className={cn(
-        "flex h-10 items-center gap-1.5 rounded-full border border-border bg-white px-3 text-sm font-medium text-foreground transition-colors",
-        "hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+        "flex h-10 items-center gap-1.5 rounded-full border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        tone === "inverse"
+          ? "border-white/[0.12] bg-white/5 text-white hover:bg-white/10 focus-visible:ring-[#1A9FFF] focus-visible:ring-offset-[#0B0D10]"
+          : "border-border bg-white text-foreground hover:bg-surface focus-visible:ring-black",
         className
       )}
     >
       <span aria-hidden="true">{meta.flag}</span>
       <span>{locale.toUpperCase()}</span>
-      <span className="text-secondary" aria-hidden="true">
+      <span className={tone === "inverse" ? "text-white/50" : "text-secondary"} aria-hidden="true">
         ·
       </span>
-      <span className="text-secondary">{currency}</span>
+      <span className={tone === "inverse" ? "text-white/70" : "text-secondary"}>{currency}</span>
     </button>
   );
 }

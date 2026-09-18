@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/cn";
 
 const OTP_LENGTH = 6;
@@ -55,6 +55,16 @@ export function OtpInput({
 }: OtpInputProps) {
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const digits = Array.from({ length: OTP_LENGTH }, (_, index) => value[index] ?? "");
+
+  // LAYOUT-FIX-01: a ref + effect instead of the native `autoFocus` prop
+  // (which doesn't support `preventScroll`) — same fix as LoginView's/
+  // RegisterView's email field: focusing the first box without letting
+  // the browser scroll it into view, so this OTP screen (rendered inside
+  // the same dark card, after Register's sign-up submit) can't cut off
+  // its own top on a shorter viewport either.
+  useEffect(() => {
+    inputRefs.current[0]?.focus({ preventScroll: true });
+  }, []);
 
   function focusBox(index: number) {
     inputRefs.current[index]?.focus();
@@ -141,7 +151,6 @@ export function OtpInput({
           maxLength={1}
           value={digit}
           disabled={disabled}
-          autoFocus={index === 0}
           onChange={(event) => handleChange(index, event)}
           onKeyDown={(event) => handleKeyDown(index, event)}
           onPaste={(event) => handlePaste(index, event)}
@@ -150,8 +159,15 @@ export function OtpInput({
           aria-describedby={describedById}
           aria-invalid={invalid}
           className={cn(
-            "h-12 w-10 rounded-xl border bg-white text-center text-xl font-semibold text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:h-14 sm:w-12",
-            invalid ? "border-red-500" : "border-border",
+            // STEP AUTH-01: `w-8` (not `w-10`) at the base breakpoint —
+            // measured directly against `AuthFormPanel`'s real card
+            // padding (`px-4` page gutter + `p-[22px]` card padding at
+            // this breakpoint): 6 boxes at the old `w-10` plus 5×`gap-2`
+            // needed 280px, but a 320px-wide viewport only has ~244px of
+            // card-inner width to give them, a real overflow below
+            // ~356px wide. `w-8` needs 232px, comfortably inside that.
+            "h-12 w-8 rounded-xl border bg-black/25 text-center text-xl font-semibold text-white backdrop-blur-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A9FFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#151922] sm:h-14 sm:w-12",
+            invalid ? "border-red-500" : "border-white/10",
             disabled && "opacity-60"
           )}
         />

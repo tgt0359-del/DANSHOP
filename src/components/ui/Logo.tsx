@@ -17,7 +17,22 @@ import { cn } from "@/lib/cn";
  * change is the only edit needed — Navbar, Sidebar, and Footer don't
  * need to change at all.
  */
-export function Logo({ className, onClick }: { className?: string; onClick?: () => void }) {
+export function Logo({
+  className,
+  onClick,
+  tone = "default",
+}: {
+  className?: string;
+  onClick?: () => void;
+  /** PHASE A (Login/Register UI Redesign): opt-in only — every existing
+   * call site (Header, Sidebar, Footer) omits this and keeps rendering
+   * with the original dark-on-light colors below, unchanged. `"inverse"`
+   * is for the one new context that needs it: the auth pages' dark card
+   * (`AuthPageLayout`), where the default `text-foreground`/`text-secondary`
+   * (near-black/gray) would be almost unreadable on a `neutral-900`
+   * background. */
+  tone?: "default" | "inverse";
+}) {
   return (
     <Link
       href="/"
@@ -29,12 +44,14 @@ export function Logo({ className, onClick }: { className?: string; onClick?: () 
         // asset invented), just given more visual room to read as a
         // deliberate brand mark rather than a small inline label.
         "inline-flex h-9 shrink-0 items-center text-xl tracking-tight",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+        tone === "inverse"
+          ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A9FFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#151922]"
+          : "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
         className
       )}
     >
-      <span className="font-semibold text-foreground">DAN</span>
-      <span className="font-medium text-secondary">SHOP</span>
+      <span className={tone === "inverse" ? "font-semibold text-white" : "font-semibold text-foreground"}>DAN</span>
+      <span className={tone === "inverse" ? "font-medium text-neutral-400" : "font-medium text-secondary"}>SHOP</span>
     </Link>
   );
 }
