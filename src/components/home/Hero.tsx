@@ -1,190 +1,178 @@
 "use client";
 
+import { useCallback, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { buttonClasses } from "@/components/ui/Button";
+import { CarouselNavButtons } from "@/components/ui/CarouselNavButtons";
 import { Container } from "@/components/ui/Container";
+import { heroSlides } from "@/data/heroSlides";
 import { useLanguage } from "@/hooks/useLanguage";
 import { cn } from "@/lib/cn";
 
 /**
- * UI-03.1 (full-width campaign-banner pass) — redesigns the Hero from the
- * previous two-column "text card beside a bordered image card" layout into
- * one full-width campaign banner: the real artwork
- * (`public/images/hero/danshop-games-hero.png`, unchanged — this pass never
- * edits the image itself) fills the whole Hero width, with real HTML text
- * and minimal glass/transparent CTAs overlaid directly on it, matching the
- * "premium gaming campaign banner, not a product card" brief.
+ * UI-03.2 (Hero Multiple Images / Minimal Carousel) — builds real
+ * slide-switching on top of UI-03.1's two-column brand layout, reading
+ * the whole `heroSlides` array instead of a fixed `[0]`. With today's
+ * single real slide, `canGoPrevious`/`canGoNext` are both false and
+ * `heroSlides.length > 1` is false, so `CarouselNavButtons` and the dot
+ * row both render nothing — the Hero looks and behaves exactly like
+ * UI-03.1 until a second slide is added, per this step's own "if there's
+ * only one image, the system should work normally" requirement.
  *
- * TEXT PLACEMENT — deliberately bottom-anchored, not centered or top-left:
- * the artwork's own composition already puts a large baked-in "DAN/SHOP" +
- * "GAMES FOR EVERY PLAYER" wordmark in a solid-black band across its lower
- * third (every character/action in the artwork sits in the upper two-
- * thirds instead). That existing dark band is the one genuinely "readable
- * area" of the image, so the real, accessible HTML heading/tagline/CTAs
- * below sit there too — a soft bottom-up black gradient (never a solid
- * box) keeps them legible without ever covering a face, weapon, or the
- * artwork's own wordmark above it. Placing new text there deliberately
- * reads as a distinct caption/action bar under the artwork's own headline,
- * not a second competing headline stacked on top of it.
+ * Reuses `CarouselNavButtons` (the same circular Previous/Next pair the
+ * homepage's product rows already use) rather than a second, near-
+ * identical button pair — its two new optional `ariaLabelLeft`/
+ * `ariaLabelRight` props (this step) let this caller supply "previous/
+ * next slide" wording instead of that component's default "scroll
+ * left/right" labels, with every existing caller unaffected since both
+ * props are optional and fall back to the original label.
  *
- * MOBILE (< `sm`, 640px): at very narrow widths a 16:9 crop of this image
- * is short enough (e.g. ~202px tall at 360px wide) that the safe dark band
- * is too thin to comfortably fit a heading + tagline + two buttons without
- * either shrinking to illegible text or spilling onto the artwork above —
- * exactly what "never let text cover an important part of the image"
- * forbids. Since this step's own brief explicitly allows text to sit
- * above/below the image "as appropriate" on mobile, the image renders
- * clean (no overlay at all) below `sm`, and the same real heading/
- * tagline/CTAs render directly below it on the page's own white
- * background instead — using this site's normal solid-button style there
- * (a transparent/glass button tuned for a dark image would be unreadable
- * on white). `sm:` and up always uses the overlay; this is the only
- * breakpoint-dependent structural difference.
+ * Left/right index state lives here (not in a hook) — `useHorizontalScroll`
+ * tracks a scroll container's pixel position; this is a plain array index
+ * with no DOM measurement involved, so it doesn't fit that hook and
+ * doesn't need one of its own.
  */
-const HERO_ARTWORK_IMAGE = "/images/hero/danshop-games-hero.png";
-const HERO_ARTWORK_WIDTH = 1672;
-const HERO_ARTWORK_HEIGHT = 941;
-
-/** Minimal glass/transparent CTA classes (§3) — deliberately NOT this
- * site's normal solid-black `buttonClasses` (too heavy on top of a busy
- * campaign photo, and explicitly ruled out: "no large solid black
- * buttons"). Primary is a touch more opaque/visible than secondary, per
- * spec; both share the same pill shape, thin white border, light backdrop
- * blur, and a restrained "get slightly brighter" hover — no heavy shadow,
- * no scale/bounce animation. */
-const glassPrimaryClass =
-  "inline-flex h-11 items-center justify-center rounded-full border border-white/65 bg-white/10 px-6 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-200 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 sm:h-12 sm:px-7 sm:text-base";
-const glassSecondaryClass =
-  "inline-flex h-11 items-center justify-center rounded-full border border-white/35 bg-white/5 px-6 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-200 hover:border-white/55 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 sm:h-12 sm:px-7 sm:text-base";
-
-/**
- * The real heading/tagline/CTA content — written once, rendered twice (the
- * `sm:`+ overlay, and the < `sm` stacked-below block), so the translated
- * copy and routes exist in exactly one place. `tone` only changes styling
- * (white glass-on-image vs. this site's normal dark-on-white), never the
- * content, route, or translation key.
- */
-function HeroContent({ tone }: { tone: "overlay" | "stacked" }) {
-  const { t } = useLanguage();
-  const isOverlay = tone === "overlay";
-
-  return (
-    <>
-      {/* §2 / "รักษาข้อความ localization เดิม: DANSHOP, Games for every
-          player": the literal brand wordmark (unchanged, not a translation
-          key — a proper noun, matching Logo/footer usage) plus the same
-          real `brand.tagline` copy already used everywhere else in the
-          app (its EN string reads "Your digital game marketplace"; the
-          artwork's own baked-in "GAMES FOR EVERY PLAYER" line is the
-          image's separate, fixed design element — this HTML text is not
-          meant to literally restate it, just to keep DANSHOP's real
-          heading/tagline present as real, accessible text per §2/§5 of
-          the original Hero step). No translation key changed. */}
-      <h1
-        className={cn(
-          "font-bold leading-[1.05] tracking-[-0.02em]",
-          isOverlay ? "text-2xl text-white sm:text-3xl lg:text-4xl" : "text-4xl text-foreground sm:text-5xl"
-        )}
-      >
-        DANSHOP
-      </h1>
-      <p
-        className={cn(
-          "mt-2 max-w-md text-sm sm:text-base",
-          isOverlay ? "text-white/85" : "mt-3 text-secondary"
-        )}
-      >
-        {t("brand.tagline")}
-      </p>
-
-      <div className={cn("flex flex-wrap items-center gap-3", isOverlay ? "mt-4 sm:mt-5" : "mt-6")}>
-        <Link
-          href="/games"
-          prefetch={false}
-          className={isOverlay ? glassPrimaryClass : buttonClasses("primary", "lg")}
-        >
-          {t("home.hero.shopNow")}
-        </Link>
-        <Link
-          href="/games"
-          prefetch={false}
-          className={isOverlay ? glassSecondaryClass : buttonClasses("secondary", "lg")}
-        >
-          {t("home.hero.viewAllProducts")}
-        </Link>
-      </div>
-    </>
-  );
-}
-
 export function Hero() {
   const { t } = useLanguage();
-  const artworkAlt = t("home.hero.subheading");
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const slideCount = heroSlides.length;
+  const activeSlide = heroSlides[activeIndex];
+  const canGoPrevious = activeIndex > 0;
+  const canGoNext = activeIndex < slideCount - 1;
+
+  const goToPrevious = useCallback(() => {
+    setActiveIndex((index) => Math.max(0, index - 1));
+  }, []);
+  const goToNext = useCallback(() => {
+    setActiveIndex((index) => Math.min(slideCount - 1, index + 1));
+  }, [slideCount]);
+
+  // UI-03.2 §8: ArrowLeft/ArrowRight while focus is anywhere inside the
+  // Hero (a CTA link, a nav button, a dot) also change slides — a real
+  // keyboard shortcut on top of the buttons themselves already being
+  // reachable/activatable by keyboard as plain `<button>`s.
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLElement>) => {
+      if (event.key === "ArrowLeft") {
+        goToPrevious();
+      } else if (event.key === "ArrowRight") {
+        goToNext();
+      }
+    },
+    [goToPrevious, goToNext]
+  );
+
+  const artworkAlt = t(activeSlide.altKey);
+  const heading = t(activeSlide.headingKey);
+  const tagline = t(activeSlide.taglineKey);
+  const primaryLabel = t(activeSlide.primaryCta.labelKey);
+  const secondaryLabel = t(activeSlide.secondaryCta.labelKey);
 
   return (
-    <section aria-label={artworkAlt} className="bg-white">
-      <Container className="py-6 sm:py-8 lg:py-10">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative aspect-video w-full overflow-hidden rounded-2xl"
-        >
-          {/* Full-width real campaign artwork (§1) — same file, untouched;
-              `object-cover` fills the fixed 16:9 box without stretching or
-              squeezing (the asset's own real ratio, 1.7768, is already
-              within a fraction of a percent of 16:9, so cover crops
-              nothing visually meaningful). No border/white card frame
-              around it (§1's "no thick white card border") — just the
-              same subtle corner rounding every other rounded element on
-              this site uses. */}
-          <Image
-            src={HERO_ARTWORK_IMAGE}
-            alt={artworkAlt}
-            width={HERO_ARTWORK_WIDTH}
-            height={HERO_ARTWORK_HEIGHT}
-            priority
-            sizes="(min-width: 1280px) 1280px, 100vw"
-            className="h-full w-full object-cover"
-          />
+    <section aria-label={artworkAlt} className="bg-white" onKeyDown={handleKeyDown}>
+      <Container className="py-10 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={`text-${activeSlide.id}`}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+              {/* Small brand/campaign eyebrow — plain text, not a
+                  translation key (see `heroSlides.ts`'s own doc comment).
+                  Same typography `SectionHeading`'s `eyebrow` slot already
+                  uses elsewhere on the site. Kept tiny and muted so it
+                  never competes with the heading or the artwork's own
+                  baked-in wordmark. */}
+              <p className="text-xs font-semibold uppercase tracking-wider text-secondary">{activeSlide.eyebrow}</p>
+              <h1 className="mt-3 text-3xl font-bold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-4xl lg:text-5xl">
+                {heading}
+              </h1>
+              <p className="mt-4 max-w-md text-base leading-relaxed text-secondary">{tagline}</p>
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <Link href={activeSlide.primaryCta.href} prefetch={false} className={buttonClasses("primary", "lg")}>
+                  {primaryLabel}
+                </Link>
+                <Link
+                  href={activeSlide.secondaryCta.href}
+                  prefetch={false}
+                  className={buttonClasses("secondary", "lg")}
+                >
+                  {secondaryLabel}
+                </Link>
+              </div>
 
-          {/* Soft bottom-up gradient (§2 — "overlay สีดำ...แบบโปร่งใสเบามาก",
-              never a solid box) — fully transparent over the top two-thirds
-              (every character/action stays untouched) and only darkens the
-              lower band where the real HTML text below sits, matching the
-              image's own already-dark lower third. `sm:`+ only: below that,
-              the overlay content doesn't render at all (see HeroContent's
-              own comment), so darkening the image there would serve no
-              purpose. */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-black/75 via-black/15 to-transparent sm:block"
-          />
+              {/* Previous/Next + dots — both hidden entirely with only one
+                  slide (§6/§7's own "hide controls" requirement), so this
+                  whole block renders nothing extra today. Sits under the
+                  CTAs rather than on top of the artwork, keeping the image
+                  free of any button/indicator chrome (§10's "no product
+                  metadata on the image"). */}
+              {slideCount > 1 && (
+                <div className="mt-6 flex items-center gap-4">
+                  <CarouselNavButtons
+                    canScrollLeft={canGoPrevious}
+                    canScrollRight={canGoNext}
+                    onScrollLeft={goToPrevious}
+                    onScrollRight={goToNext}
+                    ariaLabelLeft={t("actions.previousSlide")}
+                    ariaLabelRight={t("actions.nextSlide")}
+                  />
+                  <div className="flex items-center gap-1.5">
+                    {heroSlides.map((slide, index) => (
+                      <button
+                        key={slide.id}
+                        type="button"
+                        aria-current={index === activeIndex}
+                        aria-label={t("actions.goToSlide").replace("{number}", String(index + 1))}
+                        onClick={() => setActiveIndex(index)}
+                        className={cn(
+                          "rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+                          index === activeIndex ? "h-2 w-5 bg-foreground" : "h-2 w-2 bg-border hover:bg-foreground/30"
+                        )}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
 
-          {/* `sm:`+ overlay content — bottom-anchored, left-aligned (the
-              artwork's own wordmark is centered, so this reads as a
-              distinct caption/action bar rather than a stacked duplicate
-              headline directly over it — see this file's top comment). */}
-          <div className="absolute inset-x-0 bottom-0 hidden p-5 sm:block sm:p-7 lg:p-10">
-            <HeroContent tone="overlay" />
-          </div>
-        </motion.div>
-
-        {/* < `sm` (mobile): the image above renders with no overlay at all
-            (see this file's top comment for why) — the same real content
-            follows directly below it on the page's own white background,
-            using this site's normal solid CTA style instead of the
-            glass-on-image one. */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }}
-          className="mt-6 sm:hidden"
-        >
-          <HeroContent tone="stacked" />
-        </motion.div>
+          {/* Campaign artwork — its own column, never a product-card frame
+              (no border, no shadow beyond a very light one, no price/
+              wishlist/badge chrome). `rounded-3xl` (vs. every product
+              card's `rounded-2xl`) is a deliberate, small differentiator
+              so this reads as its own "brand" surface rather than an
+              oversized card. `object-cover` on the fixed 16:9 box fills it
+              without stretching (the asset's real ratio, 1.7768, is
+              already within a fraction of a percent of 16:9) — unchanged
+              image file, unchanged crop. */}
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={`image-${activeSlide.id}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="relative aspect-video w-full overflow-hidden rounded-3xl shadow-sm"
+            >
+              <Image
+                src={activeSlide.imageSrc}
+                alt={artworkAlt}
+                width={activeSlide.imageWidth}
+                height={activeSlide.imageHeight}
+                priority
+                sizes="(min-width: 1024px) 55vw, 100vw"
+                className="h-full w-full object-cover"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </Container>
     </section>
   );
