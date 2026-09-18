@@ -104,7 +104,17 @@ export function GameCard({
       whileHover={{ y: -2 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white transition-shadow duration-200 hover:border-foreground/15 hover:shadow-md",
+        // UI-07 §2.1: a small, elegant hover shadow (was `shadow-md`, a step
+        // heavier than every other card/tile's hover elsewhere on the site)
+        // — `shadow-sm` now matches that same restrained language site-wide.
+        // Transitioning `border-color`/`box-shadow` specifically (not the
+        // former `transition-shadow`-only, and deliberately not a blanket
+        // `transition-all`) lets the border-color change animate smoothly
+        // too, without also putting `transform` under a CSS transition —
+        // that's already driven by Framer Motion's own `whileHover` above,
+        // and letting a CSS transition fight over the same property causes
+        // janky, competing animations.
+        "group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white transition-[border-color,box-shadow] duration-200 hover:border-foreground/15 hover:shadow-sm",
         className
       )}
     >
@@ -121,7 +131,10 @@ export function GameCard({
         <Link href={resolvedHref} prefetch={false} className="block h-full w-full" aria-label={game.title}>
           <GameArtwork
             game={game}
-            className="h-full w-full transition-transform duration-300 ease-out group-hover:scale-105"
+            // UI-15 §1: a subtle 1.03 zoom (was 1.05) — this task's own
+            // "around 1.02–1.04" range, still a real but restrained hover
+            // cue, not the previous slightly-more-noticeable one.
+            className="h-full w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
           />
         </Link>
 
@@ -156,6 +169,7 @@ export function GameCard({
         <Link
           href={resolvedHref}
           prefetch={false}
+          title={game.title}
           className={cn(
             "line-clamp-2 font-medium tracking-tight text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
             isLg ? "min-h-[3.5rem] text-lg" : "min-h-[3rem] text-base"
@@ -173,7 +187,13 @@ export function GameCard({
           </div>
         )}
 
-        <div className="mt-auto flex items-end gap-2 pt-1">
+        {/* UI-14: `flex-wrap` (was a single non-wrapping row) — on a
+            narrow card, a discounted price in a long-digit currency (LAK
+            amounts routinely run 6-7 digits, e.g. "₭1,259,790") plus its
+            crossed-out original price can together exceed the row's
+            width; wrapping the original price to its own line keeps both
+            fully readable instead of one getting cut off. */}
+        <div className="mt-auto flex flex-wrap items-end gap-x-2 gap-y-0.5 pt-1">
           <span className={cn("font-semibold tracking-tight text-foreground", isLg ? "text-lg" : "text-base")}>
             {game.price === 0 ? t("common.free") : formatPrice(game.price, currency)}
           </span>

@@ -19,7 +19,12 @@
     "clearSearch": "ล้างการค้นหา",
     "signIn": "เข้าสู่ระบบ",
     "signUp": "สร้างบัญชี",
-    "logout": "ออกจากระบบ"
+    "logout": "ออกจากระบบ",
+    "scrollLeft": "เลื่อนรายการไปทางซ้าย",
+    "scrollRight": "เลื่อนรายการไปทางขวา",
+    "previousSlide": "ภาพก่อนหน้า",
+    "nextSlide": "ภาพถัดไป",
+    "goToSlide": "ไปที่ภาพที่ {number}"
   },
   "settings": {
     "openLabel": "การตั้งค่าภาษาและสกุลเงิน",
@@ -74,7 +79,7 @@
       "viewAllProducts": "ดูสินค้าทั้งหมด"
     },
     "trending": {
-      "title": "เกมมาแรง",
+      "title": "เกมกำลังฮิต",
       "subtitle": "เกมยอดนิยมที่ผู้เล่นกำลังสนใจตอนนี้"
     },
     "pcGames": {
@@ -128,6 +133,7 @@
     "quantityLabel": "จำนวน",
     "gallery": "รูปภาพสินค้า",
     "viewImage": "ดูรูปภาพ {index}",
+    "previewUnavailable": "ไม่มีตัวอย่างรูปภาพ",
     "relatedProducts": "สินค้าที่เกี่ยวข้อง",
     "deliveryLabel": "การจัดส่ง",
     "digitalDelivery": "ดิจิทัล"
@@ -510,6 +516,12 @@
     "signInSubtitle": "เข้าสู่ระบบเพื่อดูคำสั่งซื้อ รายการโปรด และการตั้งค่าของคุณ",
     "signUpSubtitle": "สร้างบัญชีเพื่อบันทึกคำสั่งซื้อ รายการโปรด และการตั้งค่าของคุณ",
     "signInIntro": "เข้าสู่ระบบเพื่อเริ่มใช้งาน DANSHOP",
+    "welcomeBackHeading": "ยินดีต้อนรับกลับ",
+    "benefitDiscover": "ค้นพบเกมและสินค้าดิจิทัล",
+    "benefitFastSimple": "ประสบการณ์ช้อปปิ้งที่รวดเร็วและง่ายดาย",
+    "benefitEveryPlayer": "สร้างขึ้นเพื่อนักเล่นเกมทุกคน",
+    "termsNoticePrefix": "การดำเนินการต่อถือว่าคุณยอมรับ",
+    "termsNoticeAnd": "และ",
     "emailLabel": "อีเมล",
     "passwordLabel": "รหัสผ่าน",
     "signUpSubmit": "สร้างบัญชี",
@@ -532,13 +544,16 @@
     "hidePassword": "ซ่อนรหัสผ่าน",
     "confirmPasswordLabel": "ยืนยันรหัสผ่าน",
     "passwordMismatch": "รหัสผ่านไม่ตรงกัน",
+    "passwordsMatch": "รหัสผ่านตรงกัน",
     "forgotPassword": "ลืมรหัสผ่าน?",
     "forgotPasswordNotice": "ยังไม่สามารถรีเซ็ตรหัสผ่านได้ — กรุณากลับมาใหม่ภายหลัง",
     "orDivider": "หรือ",
     "continueWithGoogle": "ดำเนินการต่อด้วย Google",
     "continueWithApple": "ดำเนินการต่อด้วย Apple",
     "continueWithPhone": "ดำเนินการต่อด้วยหมายเลขโทรศัพท์",
+    "rememberMe": "จดจำฉัน",
     "orDividerEmail": "หรือเข้าสู่ระบบด้วยอีเมล",
+    "orDividerEmailSignUp": "หรือสมัครสมาชิกด้วยอีเมล",
     "continueWithDiscord": "ดำเนินการต่อด้วย Discord",
     "continueWithTwitch": "ดำเนินการต่อด้วย Twitch",
     "continueWithGithub": "ดำเนินการต่อด้วย GitHub",
@@ -561,6 +576,7 @@
     "otpResend": "ส่งรหัสอีกครั้ง",
     "otpResendCooldown": "ส่งรหัสอีกครั้งใน {seconds} วินาที",
     "otpResendSuccess": "ส่งรหัสใหม่แล้ว",
+    "otpChangeEmail": "อีเมลผิดใช่ไหม? เปลี่ยนอีเมล",
     "otpErrorInvalid": "รหัสไม่ถูกต้องหรือหมดอายุแล้ว กรุณาลองใหม่หรือขอรหัสใหม่",
     "otpErrorAlreadyVerified": "บัญชีนี้ได้รับการยืนยันแล้ว กรุณาเข้าสู่ระบบ"
   },

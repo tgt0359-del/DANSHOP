@@ -79,15 +79,21 @@ export function CategoryProductCard({
     <img
       src={product.image}
       alt={product.name}
-      className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+      // UI-15 §1: a subtle 1.03 zoom (was 1.05) — matches `GameCard`'s own
+      // hover scale exactly, within this task's "around 1.02–1.04" range.
+      className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
       loading="lazy"
     />
   );
 
   return (
-    // UI-06 §11: same restrained hover treatment as `GameCard` — a small
-    // lift plus a soft shadow/border change, nothing dramatic.
-    <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-md">
+    // UI-06 §11 / UI-10 §3: same restrained hover treatment as `GameCard`
+    // — a small lift plus a soft shadow/border change, nothing dramatic.
+    // `shadow-sm` (was `shadow-md`) now matches `GameCard`'s own hover
+    // shadow exactly, so every product card on the site elevates the same
+    // small, quiet amount on hover regardless of which of the two card
+    // components rendered it.
+    <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-sm">
       {/* UI-03.5 §2: same 4:3 (vs 16:10) taller image area as the Games
           "All Games" grid, opt-in via `tallImage` only — see this
           component's own doc comment for why every other call site keeps
@@ -129,6 +135,7 @@ export function CategoryProductCard({
           <Link
             href={resolvedHref}
             prefetch={false}
+            title={product.name}
             className="line-clamp-2 min-h-[3rem] text-base font-medium tracking-tight text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
           >
             {product.name}
@@ -143,9 +150,34 @@ export function CategoryProductCard({
           <span>{product.rating.toFixed(1)}</span>
         </div>
 
-        <div className="mt-auto flex items-end gap-2 pt-1">
-          <span className="text-base font-semibold text-foreground">
-            {showPriceFrom && <span className="mr-1 text-xs font-normal text-secondary">{t("wallet.from")}</span>}
+        {/* UI-14: `flex-wrap` (was a single non-wrapping row) — matches
+            `GameCard`'s own fix: a discounted price in a long-digit
+            currency (LAK amounts routinely run 6-7 digits) plus its
+            crossed-out original price can together exceed a narrow
+            card's row width; wrapping the original price to its own
+            line keeps both fully readable instead of clipping. */}
+        <div className="mt-auto flex flex-wrap items-end gap-x-2 gap-y-0.5 pt-1">
+          {/* `min-w-0`: without it, a flex item's default `min-width:
+              auto` keeps this "From ₭1,259,790"-style composite span at
+              its full intrinsic width even inside a `flex-wrap` row,
+              which defeats the wrap above for exactly the long-LAK-price
+              case it's meant to catch — this lets the span itself shrink
+              so its own text can wrap onto a second line instead. A
+              shrunk span still needs somewhere valid to break, though:
+              the "From" label and the price number are two adjacent
+              inline nodes with no space between them (only a CSS
+              margin, which isn't a text break opportunity), so a `<wbr />`
+              — a standard, invisible, zero-width break hint — is what
+              actually lets the browser wrap between them when needed,
+              without changing anything about how this reads when it
+              doesn't need to wrap. */}
+          <span className="min-w-0 text-base font-semibold text-foreground">
+            {showPriceFrom && (
+              <>
+                <span className="mr-1 text-xs font-normal text-secondary">{t("wallet.from")}</span>
+                <wbr />
+              </>
+            )}
             {product.price === 0 ? t("common.free") : formatPrice(product.price, currency)}
           </span>
           {hasDiscount && (
